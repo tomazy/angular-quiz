@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         tasks: ['coffee:dist']
       },
       coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
+        files: ['test/**/*.coffee'],
         tasks: ['coffee:test']
       },
       compass: {
@@ -134,9 +134,9 @@ module.exports = function (grunt) {
       test: {
         files: [{
           expand: true,
-          cwd: 'test/spec',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/spec',
+          cwd: 'test/',
+          src: '**/*.coffee',
+          dest: '.tmp/test',
           ext: '.js'
         }]
       }
@@ -309,6 +309,10 @@ module.exports = function (grunt) {
       unit: {
         configFile: 'karma.conf.js',
         singleRun: true
+      },
+      e2e: {
+        configFile: 'karma-e2e.conf.js',
+        singleRun: true
       }
     },
     cdnify: {
@@ -351,11 +355,22 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test', [
+  grunt.registerTask('test:unit', [
     'clean:server',
     'concurrent:test',
     'connect:test',
-    'karma'
+    'karma:unit'
+  ]);
+
+  grunt.registerTask('test:e2e', [
+    'clean:server',
+    'concurrent:test',
+    'connect:livereload',
+    'karma:e2e'
+  ]);
+
+  grunt.registerTask('test', [
+    'test:unit'
   ]);
 
   grunt.registerTask('build', [
