@@ -1,13 +1,16 @@
 angular.module('quizApp', ['ng-firebase', 'ng-firebase-simple-login'])
   .config ($routeProvider) ->
+    currUser = (AuthService) ->
+      AuthService.requestCurrentUser()
+    currUser.$inject = ['AuthService'] # help the minifiers
+
     $routeProvider
 
       .when '/',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         resolve:
-          currentUser: (AuthService, $q, $timeout) ->
-            AuthService.requestCurrentUser()
+          currentUser: currUser
 
       .when '/login',
         templateUrl: 'views/login.html',
