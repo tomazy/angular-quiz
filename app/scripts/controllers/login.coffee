@@ -9,12 +9,10 @@ angular.module('quizApp').controller 'LogInCtrl', ($scope, $location, AuthServic
 
   $scope.login = ->
     if validate()
+      $scope.processing = true
       AuthService.login($scope.email, $scope.password)
         .then ->
           $location.path('/')
         , (error)->
           $scope.errors = [error.message || error]
-
-
-
-
+          $scope.processing = false

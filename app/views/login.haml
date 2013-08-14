@@ -14,7 +14,7 @@
         %input#password(type="password" ng-model="password" placeholder="Password" required=true)
     .control-group
       .controls
-        %button.btn(type="submit" data-test="login" ng-click="login()") Log in
+        %button.btn(type="submit" data-test="login" ng-click="login()" ng-disabled="processing") Log in
     .control-group
       .controls
         %a(href="#/signup" data-test='signup') Signup
