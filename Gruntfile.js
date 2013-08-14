@@ -45,6 +45,13 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/{,*/}*.haml'],
         tasks: ['haml:dist']
       },
+      karma: {
+        files: [
+          '{.tmp,<%= yeoman.app %>}/scripts/**/*.js',
+          '{.tmp,<%= yeoman.app %>}/test/spec/**/*.js'
+        ],
+        tasks: ['karma:uwatch:run']
+      },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
@@ -312,8 +319,12 @@ module.exports = function (grunt) {
       },
       e2e: {
         configFile: 'karma-e2e.conf.js',
-        //singleRun: true
-        singleRun: false
+        singleRun: true
+      },
+      uwatch: {
+        configFile: 'karma.conf.js',
+        background: true,
+        browsers: ['PhantomJS']
       }
     },
     cdnify: {
@@ -362,6 +373,15 @@ module.exports = function (grunt) {
     'connect:test',
     'karma:unit'
   ]);
+
+  grunt.registerTask('test:watch', [
+    'clean:server',
+    'concurrent:test',
+    'connect:test',
+    'karma:uwatch',
+    'watch'
+  ]);
+
 
   grunt.registerTask('test:e2e', [
     'clean:server',
