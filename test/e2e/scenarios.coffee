@@ -9,9 +9,7 @@ describe 'Quiz App', ->
 
   it 'should redirect to login page if not logged in', ->
     expect(currentPath()).toBe("/login")
-    sleep(2)
     browser().navigateTo('#/')
-    sleep(2)
     expect(currentPath()).toBe("/login")
 
   describe 'Login page', ->
@@ -26,3 +24,9 @@ describe 'Quiz App', ->
       signupLink().click()
       expect(currentPath()).toBe("/signup")
 
+
+    it 'should allow to login', ->
+      input('email').enter('tomek@example.com')
+      input('password').enter('password')
+      element('[data-test="login"]').click()
+      expect(currentPath()).toBe("/")

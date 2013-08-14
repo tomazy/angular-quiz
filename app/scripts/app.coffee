@@ -1,9 +1,13 @@
-angular.module('quizApp', ['xauth'])
+angular.module('quizApp', ['ng-firebase', 'ng-firebase-simple-login'])
   .config ($routeProvider) ->
     $routeProvider
       .when '/',
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: {
+          currentUser: (AuthService) ->
+            AuthService.requestCurrentUser()
+        }
       .when '/login',
         templateUrl: 'views/login.html',
         controller: 'LogInCtrl'
@@ -12,5 +16,4 @@ angular.module('quizApp', ['xauth'])
         controller: 'SignUpCtrl'
       .otherwise
         redirectTo: '/'
-  .run (xAuthService, $location) ->
-    $location.path('/login') if xAuthService.currentUser() == null
+  .constant('FIREBASE_URL', 'https://quiz-test.firebaseIO.com/')
