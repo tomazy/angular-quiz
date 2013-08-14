@@ -1,5 +1,5 @@
 angular.module('quizApp').controller 'LogInCtrl', ($scope, $location, AuthService) ->
-  form = $scope.form
+  $scope.email = 'tomek@example.com'
 
   validate = ->
     $scope.errors = []
@@ -15,8 +15,8 @@ angular.module('quizApp').controller 'LogInCtrl', ($scope, $location, AuthServic
       AuthService.login($scope.email, $scope.password)
         .then ->
           $location.path('/')
-        , (rejection)->
-          $scope.errors = [rejection.reason]
+        , (error)->
+          $scope.errors = [error.message || error]
 
 
 

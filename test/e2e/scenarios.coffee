@@ -2,10 +2,10 @@ describe 'Quiz App', ->
 
   beforeEach ->
     browser().navigateTo('/')
+    sleep(1)
 
   currentPath = ->
     browser().location().url()
-
 
   it 'should redirect to login page if not logged in', ->
     expect(currentPath()).toBe("/login")
@@ -29,4 +29,6 @@ describe 'Quiz App', ->
       input('email').enter('tomek@example.com')
       input('password').enter('password')
       element('[data-test="login"]').click()
+      sleep(2)
       expect(currentPath()).toBe("/")
+      element('[data-test="logout"]').click()

@@ -1,22 +1,25 @@
 angular.module('quizApp').
-  factory 'AuthService', ($q, $timeout, $log, Firebase, FirebaseSimpleLogin, FIREBASE_URL) ->
-    $log.log('auth: in factory')
-
+  factory 'AuthService', ($q, $log, Firebase, FirebaseSimpleLogin, FIREBASE_URL, $rootScope) ->
     currentUser = null
 
     dbRef = new Firebase(FIREBASE_URL)
 
-    $log.log('auth: dbRef', dbRef)
-
-    pendingUser = null
+    deferredUser = $q.defer()
 
     authStatusChanged = (error, user) ->
       if error
-        $log.error(error)
-        pendingUser.reject(error) if pendingUser
+        $log.error("auth: Error: #{error}")
+        $rootScope.$apply ->
+          deferredUser.reject(error) if deferredUser
       else if user
-        $log.log("auth: User Id: #{user.id}, Email: #{user.email}")
-        pendingUser.resolve(user) if pendingUser
+        $log.log("auth: User logged in! User Id: #{user.id}, Email: #{user.email}")
+        currentUser = user
+        $rootScope.$apply ->
+          deferredUser.resolve(user) if deferredUser?
+      else
+        $log.log("auth: User not authenticated!!!")
+        currentUser = null
+        deferredUser.reject(reason: 'ACCESS_DENIED') if deferredUser
 
     auth = new FirebaseSimpleLogin dbRef, authStatusChanged
 
@@ -24,29 +27,24 @@ angular.module('quizApp').
       login: (email, pass) ->
         $log.log('auth: login ->', email)
 
-        deferred = $q.defer()
-        $timeout( ->
+        service.logout()
 
-          if (email == 'tomek@example.com' and pass == 'password')
-            currentUser = email: email
-            deferred.resolve(true)
-          else
-            deferred.reject(reason: 'Invalid email/password')
+        deferredUser = $q.defer()
 
-        , 1000)
+        auth.login('password', email: email, password: pass)
 
-        deferred.promise
+        deferredUser.promise
 
-      isAuthenticated: ->
-        currentUser?
+      logout: ->
+        deferredUser.reject('logging out') if deferredUser
+        auth.logout()
 
       requestCurrentUser: ->
-        $log.log('auth: requesting current user')
+        $log.log("auth: requesting current user")
+
+        return $q.when(currentUser) if currentUser?
+        return deferredUser.promise if deferredUser?
+
         deferred = $q.defer()
-
-        if isAuthenticated()
-          deferred.resolve currentUser
-        else
-          deferred.reject(reason: 'ACCESS_DENIED')
-
+        deferred.reject(reason: 'ACCESS_DENIED')
         deferred.promise
