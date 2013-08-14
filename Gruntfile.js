@@ -156,9 +156,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>/',
+          cwd: '<%= yeoman.app %>',
           src: '{,*/}*.haml',
-          dest: '.tmp/',
+          dest: '.tmp',
           ext: '.html'
         }]
       }
@@ -260,12 +260,21 @@ module.exports = function (grunt) {
           removeEmptyAttributes: true,
           removeOptionalTags: true*/
         },
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
-          dest: '<%= yeoman.dist %>'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>',
+            src: ['*.html', 'views/*.html'],
+            dest: '<%= yeoman.dist %>'
+          },
+          {
+            expand: true,
+            cwd: '.tmp',
+            src: ['*.html', 'views/*.html'],
+            dest: '<%= yeoman.dist %>'
+          }
+        ],
+        tasks: ['haml:dist']
       }
     },
     // Put files not handled in other tasks here
@@ -305,10 +314,10 @@ module.exports = function (grunt) {
         'compass'
       ],
       dist: [
+        'haml:dist',
         'coffee',
         'compass:dist',
         'imagemin',
-        'svgmin',
         'htmlmin'
       ]
     },
@@ -397,6 +406,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'useminPrepare',
+    'haml:dist',
     'concurrent:dist',
     'concat',
     'copy',
