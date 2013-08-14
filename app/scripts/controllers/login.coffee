@@ -1,6 +1,4 @@
 angular.module('quizApp').controller 'LogInCtrl', ($scope, $location, AuthService) ->
-  $scope.email = 'tomek@example.com'
-
   validate = ->
     $scope.errors = []
 
@@ -10,7 +8,6 @@ angular.module('quizApp').controller 'LogInCtrl', ($scope, $location, AuthServic
     $scope.errors.length == 0
 
   $scope.login = ->
-    console.log($scope)
     if validate()
       AuthService.login($scope.email, $scope.password)
         .then ->
