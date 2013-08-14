@@ -9,7 +9,6 @@ angular.module('quizApp')
     $scope.$on '$routeChangeStart', (event, next, current) ->
       $log.log('$routeChangeStart', next, current)
 
-
     $scope.logout = ->
       AuthService.logout()
       $location.path('/login')
