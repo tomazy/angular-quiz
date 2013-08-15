@@ -1,1 +1,16 @@
 %h1 Welcome to the Quiz!
+
+%form
+  %ol.questions
+    %li(ng-repeat="question in questions")
+      %fieldset
+        %legend {{question.desc}}
+        %pre(ng-show="question.example")
+          {{question.example}}
+        .instruction(ng-show="question.instruction")
+          {{question.instruction}}
+        %ol(type="a")
+          %li(ng-repeat="option in question.options")
+            %label
+              %input(type="checkbox")
+              {{option.desc}}
