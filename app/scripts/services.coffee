@@ -10,9 +10,7 @@ angular.module('quizApp')
   .factory 'DB', (Firebase, FIREBASE_URL, safeApply, $q, $log) ->
     conn = new Firebase(FIREBASE_URL)
 
-    questions = null
     answers = null
-
     responses = {}
 
     loadData = (name) ->
@@ -29,10 +27,7 @@ angular.module('quizApp')
 
     conn: conn
     requestQuestions: ->
-      return $q.when(questions) if questions
-
-      loadData('questions').then (data) ->
-        questions = data
+      loadData('questions')
 
     requestAnswers: ->
       return $q.when(answers) if answers

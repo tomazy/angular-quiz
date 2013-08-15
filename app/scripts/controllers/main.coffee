@@ -20,6 +20,7 @@ angular.module('quizApp')
             if r = response[q.name]
               for o in q.options
                 o.checked = r[o.value]
+        null
 
       .then ->
         $scope.status = null
@@ -34,6 +35,7 @@ angular.module('quizApp')
                 o.invalid = true
               if o.checked != o.correct
                 q.invalid = true
+        $scope
 
     $scope.submitResponse = ->
       $scope.processing = true

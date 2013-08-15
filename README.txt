@@ -8,3 +8,4 @@ Installation:
 Development
   grunt test:e2e
   grunt test:watch
+  grunt server
