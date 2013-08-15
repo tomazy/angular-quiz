@@ -1,6 +1,50 @@
 angular.module('quizApp')
-  .factory 'DB', (Firebase, FIREBASE_URL) ->
-    conn: new Firebase(FIREBASE_URL)
+  .factory 'DB', (Firebase, FIREBASE_URL, $q, $log, $rootScope) ->
+    conn = new Firebase(FIREBASE_URL)
+    questions = null
+    answers = null
+
+    conn: conn
+    requestQuestions: ->
+      return $q.when(questions) if questions
+
+      deferred = $q.defer()
+
+      conn.child('questions').on 'value', (snapshot) ->
+        questions = snapshot.val()
+        $log.log("db: loaded questions #{questions}")
+
+        $rootScope.$apply ->
+          deferred.resolve questions
+
+      deferred.promise
+
+    requestAnswers: ->
+      return $q.when(answers) if answers
+
+      deferred = $q.defer()
+
+      conn.child('answers').on 'value', (snapshot) ->
+        answers = snapshot.val()
+        $log.log("db: loaded answers #{answers}")
+
+        $rootScope.$apply ->
+          deferred.resolve answers
+
+      deferred.promise
+
+    submitResponse: (id, response) ->
+      deferred = $q.defer()
+
+      link = conn.child("responses/#{id}")
+      link.set response, (error) ->
+        $rootScope.$apply ->
+          if error
+            deferred.reject(error)
+          else
+            deferred.resolve(true)
+
+      deferred.promise
 
   .factory 'AuthService', ($q, $log, DB, FirebaseSimpleLogin, $rootScope) ->
     currentUser = null

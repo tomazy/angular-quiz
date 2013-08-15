@@ -1,6 +1,8 @@
 %h1 Welcome to the Quiz!
-
-%form
+.alert.alert-error(ng-show="error") {{error}}
+.alert.alert-info(ng-show="status") {{status}}
+.alert.alert-success(ng-show="success") {{success}}
+%form(name="quiz")
   %ol.questions
     %li(ng-repeat="question in questions")
       %fieldset
@@ -11,6 +13,8 @@
           {{question.instruction}}
         %ol(type="a")
           %li(ng-repeat="option in question.options")
-            %label
-              %input(type="checkbox")
+            %label.checkbox
+              %input(type="checkbox" name="{{question.name}}" value="{{option.value}}" ng-model="option.checked")
               {{option.desc}}
+
+  %button.btn.btn-large.btn-primary(type="submit" data-test="submit" ng-click="submitResponse()" ng-show="questions" ng-disabled="processing") Submit

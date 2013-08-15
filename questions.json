@@ -1,0 +1,112 @@
+{
+  "questions":[
+    {
+      "name": "q001",
+      "desc":"Which is not an advantage of using a closure?",
+      "options":[
+        {
+          "value": "a",
+          "desc":"Prevent pollution of global scope"
+        },
+        {
+          "value": "b",
+          "desc":"Encapsulation"
+        },
+        {
+          "value": "c",
+          "desc":"Private properties and methods"
+        },
+        {
+          "value": "d",
+          "desc":"Allow conditional use of ‘strict mode’"
+        }
+      ]
+    },
+    {
+      "name": "q002",
+      "desc":"To create a columned list of two­line email subjects and dates for a master­detail view, which are the most semantically correct?",
+      "options":[
+        {
+          "value": "a",
+          "desc":"<div>+<span>"
+        },
+        {
+          "value": "b",
+          "desc":"<tr>+<td>"
+        },
+        {
+          "value": "c",
+          "desc":"<ul>+<li>"
+        },
+        {
+          "value": "d",
+          "desc":"<p>+<br>"
+        },
+        {
+          "value": "e",
+          "desc":"<p>+<br>"
+        },
+        {
+          "value": "f",
+          "desc":"none of these"
+        },
+        {
+          "value": "g",
+          "desc":"all of these"
+        }
+      ]
+    },
+    {
+      "name": "q003",
+      "desc":"To pass an array of strings to a function, you should not use...",
+      "options":[
+        {
+          "value": "a",
+          "desc":"fn.apply(this, stringsArray)"
+        },
+        {
+          "value": "b",
+          "desc":"fn.call(this, stringsArray)"
+        },
+        {
+          "value": "c",
+          "desc":"fn.bind(this, stringsArray)"
+        }
+      ]
+    },
+    {
+      "name": "q004",
+      "desc":"Given <div id=”outer”><div class=”inner”></div></div>, which of these two is the most performant way to select the inner div?",
+      "options":[
+        {
+          "value": "a",
+          "desc":"getElementById(\"outer\").children[0]"
+        },
+        {
+          "value": "b",
+          "desc":"getElementsByClassName(\"inner\")[0]"
+        }
+      ]
+    },
+    {
+      "name": "q005",
+      "desc":"Given this:",
+      "example":"angular.module(‘myModule’).service(‘myService', function(){\n  var message = \"Message One!\"\n  var getMessage = function(){\n    return this.message\n  }\n  this.message = \"Message Two!\"\n  this.getMessage = function(){ return message }\n  function(){\n    {\n      getMessage: getMessage,\n      message: \"Message Three!\"\n    }\n  }\n}",
+      "instruction":"Which message will be returned by injecting this service and executing 'myService.getMessage()'?",
+      "options":[
+        {
+          "value": "a",
+          "desc":"\"Message One!\""
+        },
+        {
+          "value": "b",
+          "desc":"\"Message Two!\""
+        },
+        {
+          "value": "c",
+          "desc":"\"Message Three!\""
+        }
+      ]
+    }
+  ]
+}
