@@ -1,8 +1,9 @@
-angular.module('quizApp').
-  factory 'AuthService', ($q, $log, Firebase, FirebaseSimpleLogin, FIREBASE_URL, $rootScope) ->
-    currentUser = null
+angular.module('quizApp')
+  .factory 'DB', (Firebase, FIREBASE_URL) ->
+    conn: new Firebase(FIREBASE_URL)
 
-    dbRef = new Firebase(FIREBASE_URL)
+  .factory 'AuthService', ($q, $log, DB, FirebaseSimpleLogin, $rootScope) ->
+    currentUser = null
 
     deferredUser = $q.defer()
 
@@ -21,7 +22,7 @@ angular.module('quizApp').
         currentUser = null
         deferredUser.reject(reason: 'ACCESS_DENIED') if deferredUser
 
-    auth = new FirebaseSimpleLogin dbRef, authStatusChanged
+    auth = new FirebaseSimpleLogin DB.conn, authStatusChanged
 
     service =
       login: (email, pass) ->
