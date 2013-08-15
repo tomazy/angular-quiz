@@ -9,9 +9,11 @@ angular.module('quizApp')
 
   .factory 'DB', (Firebase, FIREBASE_URL, safeApply, $q, $log) ->
     conn = new Firebase(FIREBASE_URL)
+
     questions = null
     answers = null
-    response = null
+
+    responses = {}
 
     loadData = (name) ->
       deferred = $q.defer()
@@ -19,7 +21,6 @@ angular.module('quizApp')
       conn.child(name).on 'value', (snapshot) ->
         data = snapshot.val()
         $log.log("db: loaded #{name} #{data}")
-        console.log(data)
 
         safeApply ->
           deferred.resolve data
@@ -36,14 +37,14 @@ angular.module('quizApp')
     requestAnswers: ->
       return $q.when(answers) if answers
 
-      loadData('questions').then (data) ->
+      loadData('answers').then (data) ->
         answers = data
 
     requestResponse: (id) ->
-      return $q.when(answers) if answers
+      return $q.when(responses[id]) if responses[id]
 
       loadData("responses/#{id}").then (data) ->
-        response = data
+        responses[id] = data
 
     submitResponse: (id, response) ->
       deferred = $q.defer()

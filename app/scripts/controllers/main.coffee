@@ -2,7 +2,7 @@ angular.module('quizApp')
 
   .controller 'MainCtrl', ($scope, currentUser, DB, $log, $q) ->
     $scope.disabled = false
-    $scope.questions = []
+    $scope.questions = false
     $scope.status = "Loading questions. Please wait..."
 
     init = []
@@ -23,6 +23,17 @@ angular.module('quizApp')
 
       .then ->
         $scope.status = null
+
+    $scope.showCorrectAnswers = ->
+      DB.requestAnswers().then (answers) ->
+        for q in $scope.questions
+          if correct = answers[q.name]
+            for o in q.options
+              o.correct = correct[o.value]
+              if o.checked and !o.correct
+                o.invalid = true
+              if o.checked != o.correct
+                q.invalid = true
 
     $scope.submitResponse = ->
       $scope.processing = true

@@ -2,18 +2,19 @@
 .alert.alert-error(ng-show="error") {{error}}
 .alert.alert-info(ng-show="status") {{status}}
 .alert.alert-success(ng-show="success") {{success}}
+%button.btn(ng-click="showCorrectAnswers()" ng-show="response") Show Answers
 %form(name="quiz")
   %ol.questions
     %li(ng-repeat="question in questions")
       %fieldset
-        %legend {{question.desc}}
+        %legend(ng-class="{invalid: question.invalid}") {{question.desc}}
         %pre(ng-show="question.example")
           {{question.example}}
         .instruction(ng-show="question.instruction")
           {{question.instruction}}
         %ol(type="a")
           %li(ng-repeat="option in question.options")
-            %label.checkbox
+            %label.checkbox(ng-class="{correct: option.correct, invalid: option.invalid}")
               %input(type="checkbox" name="{{question.name}}" value="{{option.value}}" ng-model="option.checked" ng-disabled="disabled")
               {{option.desc}}
 
