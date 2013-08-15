@@ -97,6 +97,23 @@ angular.module('quizApp')
         deferredUser.reject('logging out') if deferredUser
         auth.logout()
 
+
+      signup: (email, pass) ->
+        $log.log("auth: signup -> #{email}, #{pass}")
+
+        service.logout()
+
+        deferred = $q.defer()
+
+        auth.createUser email, pass, (error, user) ->
+          safeApply ->
+            if error
+              deferred.reject(error)
+            else
+              deferred.resolve(user)
+
+        deferred.promise
+
       requestCurrentUser: ->
         $log.log("auth: requesting current user")
 

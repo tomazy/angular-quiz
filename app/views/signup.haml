@@ -1,4 +1,7 @@
 %form.form-horizontal(novalidate=true)
+  .alert.alert-error(ng-show="errors")
+    .error(ng-repeat="error in errors")
+      {{error}}
   %fieldset
     %legend Sign up
     .control-group
@@ -11,4 +14,4 @@
         %input#password(type="password" placeholder="Password" ng-model="password" required=true)
     .control-group
       .controls
-        %button.btn(type="submit" ng-click="register()") Sign up!
+        %button.btn(type="submit" ng-click="signup()") Sign up!
