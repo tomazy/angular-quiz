@@ -14,7 +14,7 @@
         %ol(type="a")
           %li(ng-repeat="option in question.options")
             %label.checkbox
-              %input(type="checkbox" name="{{question.name}}" value="{{option.value}}" ng-model="option.checked")
+              %input(type="checkbox" name="{{question.name}}" value="{{option.value}}" ng-model="option.checked" ng-disabled="disabled")
               {{option.desc}}
 
-  %button.btn.btn-large.btn-primary(type="submit" data-test="submit" ng-click="submitResponse()" ng-show="questions" ng-disabled="processing") Submit
+  %button.btn.btn-large.btn-primary(type="submit" data-test="submit" ng-click="submitResponse()" ng-show="questions && !response" ng-disabled="processing") Submit

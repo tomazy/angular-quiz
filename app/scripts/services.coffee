@@ -1,8 +1,17 @@
 angular.module('quizApp')
-  .factory 'DB', (Firebase, FIREBASE_URL, $q, $log, $rootScope) ->
+  .factory 'safeApply', ($rootScope) ->
+    safeApply = (fn) ->
+      phase = $rootScope.$$phase;
+      if phase == '$apply' or phase == '$digest'
+        fn()
+      else
+        $rootScope.$apply(fn);
+
+  .factory 'DB', (Firebase, FIREBASE_URL, safeApply, $q, $log) ->
     conn = new Firebase(FIREBASE_URL)
     questions = null
     answers = null
+    response = null
 
     loadData = (name) ->
       deferred = $q.defer()
@@ -10,8 +19,9 @@ angular.module('quizApp')
       conn.child(name).on 'value', (snapshot) ->
         data = snapshot.val()
         $log.log("db: loaded #{name} #{data}")
+        console.log(data)
 
-        $rootScope.$apply ->
+        safeApply ->
           deferred.resolve data
 
       deferred.promise
@@ -29,12 +39,18 @@ angular.module('quizApp')
       loadData('questions').then (data) ->
         answers = data
 
+    requestResponse: (id) ->
+      return $q.when(answers) if answers
+
+      loadData("responses/#{id}").then (data) ->
+        response = data
+
     submitResponse: (id, response) ->
       deferred = $q.defer()
 
       link = conn.child("responses/#{id}")
       link.set response, (error) ->
-        $rootScope.$apply ->
+        safeApply ->
           if error
             deferred.reject(error)
           else
@@ -42,7 +58,7 @@ angular.module('quizApp')
 
       deferred.promise
 
-  .factory 'AuthService', ($q, $log, DB, FirebaseSimpleLogin, $rootScope) ->
+  .factory 'AuthService', ($q, $log, DB, FirebaseSimpleLogin, safeApply) ->
     currentUser = null
 
     deferredUser = $q.defer()
@@ -50,12 +66,12 @@ angular.module('quizApp')
     authStatusChanged = (error, user) ->
       if error
         $log.error("auth: Error: #{error}")
-        $rootScope.$apply ->
+        safeApply ->
           deferredUser.reject(error) if deferredUser
       else if user
         $log.log("auth: User logged in! User Id: #{user.id}, Email: #{user.email}")
         currentUser = user
-        $rootScope.$apply ->
+        safeApply ->
           deferredUser.resolve(user) if deferredUser?
       else
         $log.log("auth: User not authenticated!!!")
