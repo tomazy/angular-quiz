@@ -1,48 +1,76 @@
-describe 'Quiz App', ->
-  DEF_EMAIL = 'tomek@example.com'
-  DEF_PASS = 'password'
+DEF_EMAIL = 'tomek@example.com'
+DEF_PASS = 'password'
 
-  currentPath = ->
-    browser().location().url()
+class BasePage
+  logout: ->
+    element('[data-test="logout"]').click()
 
-  login = (email = DEF_EMAIL, pass = DEF_PASS, done) ->
+class HomePage extends BasePage
+  title: ->
+    element('h1').text()
+
+  expectToBeDisplayed: ->
+    expect(@title()).toBe('Welcome to the Quiz!')
+
+class LoginPage extends BasePage
+  title: ->
+    element('legend').text()
+
+  goToSignUpPage: ->
+    element('[data-test="signup"]').click()
+
+  expectToBeDisplayed: ->
+    expect(@title()).toBe('Log in')
+
+  login: (email = DEF_EMAIL, pass = DEF_PASS, done) ->
     input('email').enter(email)
     input('password').enter(pass)
     element('[data-test="login"]').click()
 
-  logout = ->
-    element('[data-test="logout"]').click()
+class SignUpPage extends BasePage
+  title: ->
+    element('legend').text()
+
+  expectToBeDisplayed: ->
+    expect(@title()).toBe('Sign up')
+
+homePage = -> new HomePage
+loginPage = -> new LoginPage
+signupPage = -> new SignUpPage
+currentPage = -> new BasePage
+
+describe 'Quiz App', ->
+  currentPath = ->
+    browser().location().url()
 
   beforeEach ->
     browser().navigateTo('/')
-    logout()
+    currentPage().logout()
 
   it 'should redirect to login page if not logged in', ->
     browser().navigateTo('#/')
-    expect(currentPath()).toBe("/login")
+    loginPage().expectToBeDisplayed()
 
-  describe 'Login page', ->
-
-    signupLink = ->
-      element('[data-test="signup"]')
+  describe 'Logging in', ->
 
     beforeEach ->
       browser().navigateTo('#/login')
+      loginPage().expectToBeDisplayed()
 
     it 'should allow to sign up', ->
-      signupLink().click()
-      expect(currentPath()).toBe("/signup")
+      loginPage().goToSignUpPage()
+      signupPage().expectToBeDisplayed()
 
     it 'should allow to login', ->
-      login()
-      sleep(3)
-      expect(currentPath()).toBe("/")
+      loginPage().login()
+      sleep(3) # grrr
+      homePage().expectToBeDisplayed()
 
   describe 'When logged in', ->
     beforeEach ->
       browser().navigateTo('#/login')
-      login()
+      loginPage().login()
 
     it 'should allow to logout', ->
-      logout()
-      expect(currentPath()).toBe("/login")
+      currentPage().logout()
+      loginPage().expectToBeDisplayed()
