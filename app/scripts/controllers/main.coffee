@@ -33,7 +33,7 @@ angular.module('quizApp')
               o.correct = correct[o.value]
               if o.checked and !o.correct
                 o.invalid = true
-              if o.checked != o.correct
+              if !!o.checked != o.correct
                 q.invalid = true
         $scope
 
