@@ -4,34 +4,30 @@ angular.module('quizApp')
     questions = null
     answers = null
 
+    loadData = (name) ->
+      deferred = $q.defer()
+
+      conn.child(name).on 'value', (snapshot) ->
+        data = snapshot.val()
+        $log.log("db: loaded #{name} #{data}")
+
+        $rootScope.$apply ->
+          deferred.resolve data
+
+      deferred.promise
+
     conn: conn
     requestQuestions: ->
       return $q.when(questions) if questions
 
-      deferred = $q.defer()
-
-      conn.child('questions').on 'value', (snapshot) ->
-        questions = snapshot.val()
-        $log.log("db: loaded questions #{questions}")
-
-        $rootScope.$apply ->
-          deferred.resolve questions
-
-      deferred.promise
+      loadData('questions').then (data) ->
+        questions = data
 
     requestAnswers: ->
       return $q.when(answers) if answers
 
-      deferred = $q.defer()
-
-      conn.child('answers').on 'value', (snapshot) ->
-        answers = snapshot.val()
-        $log.log("db: loaded answers #{answers}")
-
-        $rootScope.$apply ->
-          deferred.resolve answers
-
-      deferred.promise
+      loadData('questions').then (data) ->
+        answers = data
 
     submitResponse: (id, response) ->
       deferred = $q.defer()
