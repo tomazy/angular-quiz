@@ -1,0 +1,48 @@
+!!!
+%html.no-js
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    %title Angular Quiz
+    %meta(name="viewport" content="width=device-width")
+
+    /build:css({.tmp,app}) styles/main.css
+    %link(rel="stylesheet" href="styles/main.css")
+    /endbuild
+
+  %body(ng-app="quizApp" ng-controller="AppCtrl")
+    /[if lt IE 7]
+      %p.chromeframe
+        You are using an outdated browser.
+        %a(href="http://browsehappy.com/") Upgrade your browser today
+        or
+        %a(href="http://www.google.com/chromeframe/?redirect=true") install Google Chrome Frame
+        to better experience this site.
+
+    /[if lt IE 9]
+      %script(src="bower_components/es5-shim/es5-shim.js")
+      %script(src="bower_components/json3/lib/json3.min.js")
+
+    %a.logout(ng-click="logout()" data-test="logout" href="#/login") Log out
+    .container(ng-view="")
+
+    %script(src="//cdn.firebase.com/v0/firebase.js")
+    %script(src='//cdn.firebase.com/v0/firebase-simple-login.js')
+
+    %script(src="bower_components/angular/angular.js")
+
+    /build:js(app) scripts/modules.js
+    %script(src="bower_components/angular-firebase/ng-firebase.js")
+    %script(src="bower_components/angular-firebase/ng-firebase-collection.js")
+    %script(src="bower_components/angular-firebase/ng-firebase-binding.js")
+    /endbuild
+
+    /build:js({.tmp,app}) scripts/scripts.js
+    %script(src="scripts/app.js")
+    %script(src="scripts/modules/firebase_simple_login.js")
+    %script(src="scripts/services.js")
+    %script(src="scripts/controllers/app.js")
+    %script(src="scripts/controllers/main.js")
+    %script(src="scripts/controllers/signup.js")
+    %script(src="scripts/controllers/login.js")
+    /endbuild
