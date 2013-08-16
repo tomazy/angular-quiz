@@ -7,54 +7,7 @@ angular.module('quizApp')
       else
         $rootScope.$apply(fn);
 
-  .factory 'DB', (Firebase, FIREBASE_URL, safeApply, $q, $log) ->
-    conn = new Firebase(FIREBASE_URL)
-
-    answers = null
-    responses = {}
-
-    loadData = (name) ->
-      deferred = $q.defer()
-
-      conn.child(name).on 'value', (snapshot) ->
-        data = snapshot.val()
-        $log.log("db: loaded #{name} #{data}")
-
-        safeApply ->
-          deferred.resolve data
-
-      deferred.promise
-
-    conn: conn
-    requestQuestions: ->
-      loadData('questions')
-
-    requestAnswers: ->
-      return $q.when(answers) if answers
-
-      loadData('answers').then (data) ->
-        answers = data
-
-    requestResponse: (id) ->
-      return $q.when(responses[id]) if responses[id]
-
-      loadData("responses/#{id}").then (data) ->
-        responses[id] = data
-
-    submitResponse: (id, response) ->
-      deferred = $q.defer()
-
-      link = conn.child("responses/#{id}")
-      link.set response, (error) ->
-        safeApply ->
-          if error
-            deferred.reject(error)
-          else
-            deferred.resolve(true)
-
-      deferred.promise
-
-  .factory 'AuthService', ($q, $log, DB, FirebaseSimpleLogin, safeApply) ->
+  .factory 'AuthService', ($q, $log, DBConnection, FirebaseSimpleLogin, safeApply) ->
     currentUser = null
 
     deferredUser = $q.defer()
@@ -74,7 +27,7 @@ angular.module('quizApp')
         currentUser = null
         deferredUser.reject(reason: 'ACCESS_DENIED') if deferredUser
 
-    auth = new FirebaseSimpleLogin DB.conn, authStatusChanged
+    auth = new FirebaseSimpleLogin DBConnection, authStatusChanged
 
     service =
       login: (email, pass) ->
@@ -118,3 +71,19 @@ angular.module('quizApp')
         deferred = $q.defer()
         deferred.reject(reason: 'ACCESS_DENIED')
         deferred.promise
+
+  .factory 'LoginValidator', ->
+
+    service =
+      validate: (data, onError) ->
+        result = true
+
+        unless data.email
+          onError "Invalid email"
+          result = false
+
+        unless data.password
+          onError "Invalid password"
+          result = false
+
+        result

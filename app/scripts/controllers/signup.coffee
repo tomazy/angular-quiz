@@ -1,16 +1,19 @@
-angular.module('quizApp').controller 'SignUpCtrl', ($scope, $location, AuthService) ->
-  validate = ->
-    $scope.errors = []
+angular.module('quizApp')
 
-    $scope.errors.push("Invalid email") unless $scope.email
-    $scope.errors.push("Invalid password") unless $scope.password
+  .controller 'SignUpCtrl', ($scope, $location, AuthService, Flash, LoginValidator) ->
+    onError = (error) ->
+      Flash.now.error(error)
 
-    $scope.errors.length == 0
+    $scope.signup = ->
+      if LoginValidator.validate($scope, onError)
+        $scope.processing = true
 
-  $scope.signup = ->
-    if validate()
-      AuthService.signup($scope.email, $scope.password)
-        .then ->
+        success = ->
+          Flash.future.success("You've been signed up! Now you can log in.")
           $location.path('/login')
-        , (error)->
-          $scope.errors = [error.message || error]
+
+        error = (error) ->
+          Flash.now.error(error.message || error)
+          $scope.processing = false
+
+        AuthService.signup($scope.email, $scope.password).then(success, error)

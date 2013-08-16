@@ -10,8 +10,8 @@ files = [
   'app/bower_components/angular/angular.js',
   'app/bower_components/angular-mocks/angular-mocks.js',
   '.tmp/scripts/**/*.js',
-  '.tmp/test/spec/spec_helper.js',
-  '.tmp/test/spec/**/*.js'
+  '.tmp/test/spec/specHelper.js',
+  '.tmp/test/spec/**/*Spec.js'
 ];
 
 // list of files to exclude

@@ -1,7 +1,4 @@
 %form.form-horizontal(novalidate=true)
-  .alert.alert-error(ng-show="errors")
-    .error(ng-repeat="error in errors")
-      {{error}}
   %fieldset
     %legend Sign up
     .control-group
@@ -15,3 +12,6 @@
     .control-group
       .controls
         %button.btn(type="submit" ng-click="signup()") Sign up!
+    .control-group
+      .controls
+        %a(href="#/login") Log in

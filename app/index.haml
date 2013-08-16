@@ -10,7 +10,7 @@
     %link(rel="stylesheet" href="styles/main.css")
     /endbuild
 
-  %body(ng-app="quizApp" ng-controller="AppCtrl")
+  %body
     /[if lt IE 7]
       %p.chromeframe
         You are using an outdated browser.
@@ -23,8 +23,22 @@
       %script(src="bower_components/es5-shim/es5-shim.js")
       %script(src="bower_components/json3/lib/json3.min.js")
 
-    %a.logout(ng-click="logout()" data-test="logout" href="#/login") Log out
-    .container(ng-view="")
+    .app(style="display: none" ng-show="true" ng-app="quizApp" ng-controller="AppCtrl")
+
+      .alert.alert-error(ng-show="flash.errors.length")
+        .error(ng-repeat="error in flash.errors")
+          {{error}}
+
+      .alert.alert-info(ng-show="flash.infos")
+        .info(ng-repeat="info in flash.infos")
+          {{info}}
+
+      .alert.alert-success(ng-show="flash.successes")
+        .success(ng-repeat="success in flash.successes")
+          {{success}}
+
+      %a.logout(ng-click="logout()" data-test="logout" href="#/login") Log out
+      .container(ng-view="")
 
     %script(src="//cdn.firebase.com/v0/firebase.js")
     %script(src='//cdn.firebase.com/v0/firebase-simple-login.js')
@@ -41,6 +55,9 @@
     %script(src="scripts/app.js")
     %script(src="scripts/modules/firebase_simple_login.js")
     %script(src="scripts/services.js")
+    %script(src="scripts/services/flash.js")
+    %script(src="scripts/services/db.js")
+    %script(src="scripts/services/quiz.js")
     %script(src="scripts/controllers/app.js")
     %script(src="scripts/controllers/main.js")
     %script(src="scripts/controllers/signup.js")

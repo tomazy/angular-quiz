@@ -8,15 +8,25 @@ describe 'Controller: LogInCtrl', ->
   location = null
   AuthService = null
   loginPromise = null
+  Flash = null
 
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new();
     location = jasmine.createSpyObj('location', ['path'])
+
     loginPromise = jasmine.createSpyObj('loginPromise', ['then'])
     AuthService =
       login: jasmine.createSpy().andReturn(loginPromise)
 
-    LogInCtrl = $controller 'LogInCtrl', $scope: scope, $location: location, AuthService: AuthService
+    Flash =
+      now: jasmine.createSpyObj('Flash.now', ['error', 'reset'])
+      future: jasmine.createSpyObj('Flash.now', ['success'])
+
+    LogInCtrl = $controller 'LogInCtrl',
+      $scope: scope
+      $location: location
+      AuthService: AuthService
+      Flash: Flash
 
   describe 'login', ->
 
@@ -28,7 +38,7 @@ describe 'Controller: LogInCtrl', ->
         expect(location.path).not.toHaveBeenCalled()
 
       it 'should have errors', ->
-        expect(scope.errors.length).toBeGreaterThan(0)
+        expect(Flash.now.error).toHaveBeenCalled()
 
     context 'valid', ->
       beforeEach ->
@@ -37,7 +47,7 @@ describe 'Controller: LogInCtrl', ->
         scope.login()
 
       it 'should not have errors', ->
-        expect(scope.errors.length).toBe(0)
+        expect(Flash.now.error).not.toHaveBeenCalled()
 
       it 'should login', ->
         expect(AuthService.login).toHaveBeenCalled()
@@ -51,6 +61,9 @@ describe 'Controller: LogInCtrl', ->
         it 'should redirect to home page', ->
           expect(location.path).toHaveBeenCalledWith('/')
 
+        it 'should flash a message', ->
+          expect(Flash.future.success).toHaveBeenCalled()
+
       describe 'login failure', ->
         beforeEach ->
           loginErrorCB = loginPromise.then.calls[0].args[1]
@@ -60,4 +73,4 @@ describe 'Controller: LogInCtrl', ->
           expect(location.path).not.toHaveBeenCalled()
 
         it 'should collect errors', ->
-          expect(scope.errors).toEqual(['WOA!'])
+          expect(Flash.now.error).toHaveBeenCalledWith('WOA!')

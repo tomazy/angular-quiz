@@ -1,15 +1,15 @@
 angular.module('quizApp')
 
-  .controller 'MainCtrl', ($scope, currentUser, DB, $log, $q) ->
+  .controller 'MainCtrl', ($scope, currentUser, Quiz, $log, $q) ->
     $scope.disabled = false
     $scope.questions = false
     $scope.status = "Loading questions. Please wait..."
 
     init = []
-    init.push DB.requestQuestions().then (questions) ->
+    init.push Quiz.loadQuestions().then (questions) ->
       $scope.questions = questions
 
-    init.push DB.requestResponse(currentUser.id).then (response) ->
+    init.push Quiz.loadResponse(currentUser.id).then (response) ->
       $scope.response = response
       $scope.disabled = response != null
 
@@ -26,7 +26,7 @@ angular.module('quizApp')
         $scope.status = null
 
     $scope.showCorrectAnswers = ->
-      DB.requestAnswers().then (answers) ->
+      Quiz.loadAnswers().then (answers) ->
         for q in $scope.questions
           if correct = answers[q.name]
             for o in q.options
@@ -46,7 +46,7 @@ angular.module('quizApp')
         for o in q.options
           response[q.name][o.value] = o.checked || false
 
-      DB.submitResponse(currentUser.id, response)
+      Quiz.submitResponse(currentUser.id, response)
         .then ->
           $scope.success = "Thanks for submitting the response!"
           $scope.response = response
