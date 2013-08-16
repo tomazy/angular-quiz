@@ -94,7 +94,7 @@ angular.module('quizApp')
 
 
       signup: (email, pass) ->
-        $log.log("auth: signup -> #{email}, #{pass}")
+        $log.log("auth: signup -> #{email}")
 
         service.logout()
 
