@@ -1,0 +1,27 @@
+<form class="form-horizontal" novalidate="">
+<fieldset>
+<legend>Sign up</legend>
+<div class="control-group">
+<label class="control-label" for="email">Email:</label>
+<div class="controls">
+<input id="email" ng-model="email" placeholder="Email" required="" type="email">
+</div>
+</div>
+<div class="control-group">
+<label class="control-label" for="password">Password:</label>
+<div class="controls">
+<input id="password" ng-model="password" placeholder="Password" required="" type="password">
+</div>
+</div>
+<div class="control-group">
+<div class="controls">
+<button class="btn" ng-click="signup()" type="submit">Sign up!</button>
+</div>
+</div>
+<div class="control-group">
+<div class="controls">
+<a href="#/login">Log in</a>
+</div>
+</div>
+</fieldset>
+</form>

@@ -1,1 +1,49 @@
-My github page
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<title>Angular Quiz</title>
+<meta content="width=device-width" name="viewport">
+<link rel="stylesheet" href="styles/cc562949.main.css">
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class='chromeframe'>
+You are using an outdated browser.
+<a href='http://browsehappy.com/'>Upgrade your browser today</a>
+or
+<a href='http://www.google.com/chromeframe/?redirect=true'>install Google Chrome Frame</a>
+to better experience this site.
+</p>
+<![endif]-->
+<!--[if lt IE 9]>
+<script src='bower_components/es5-shim/es5-shim.js'></script>
+<script src='bower_components/json3/lib/json3.min.js'></script>
+<![endif]-->
+<div class="app" ng-app="quizApp" ng-controller="AppCtrl" ng-show="true" style="display: none">
+<div class="alert alert-error" ng-show="flash.errors.length">
+<div class="error" ng-repeat="error in flash.errors">
+{{error}}
+</div>
+</div>
+<div class="alert alert-info" ng-show="flash.infos">
+<div class="info" ng-repeat="info in flash.infos">
+{{info}}
+</div>
+</div>
+<div class="alert alert-success" ng-show="flash.successes">
+<div class="success" ng-repeat="success in flash.successes">
+{{success}}
+</div>
+</div>
+<a class="logout" data-test="logout" href="#/login" ng-click="logout()">Log out</a>
+<div class="container" ng-view=""></div>
+</div>
+<script src="//cdn.firebase.com/v0/firebase.js"></script>
+<script src="//cdn.firebase.com/v0/firebase-simple-login.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="scripts/06dab94d.modules.js"></script>
+<script src="scripts/1fd2a445.scripts.js"></script>
+</body>
+</html>
