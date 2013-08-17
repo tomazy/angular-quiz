@@ -1,3 +1,5 @@
+http://tomazy.github.io/angular-quiz/
+
 Requirements:
   gem install haml
 
