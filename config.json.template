@@ -1,0 +1,6 @@
+{
+  "options": {
+    "UA":           "<your google analytics code>",
+    "FIREBASE_URL": "https://your-database.firebaseIO.com/"
+  }
+}

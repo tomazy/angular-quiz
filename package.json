@@ -38,7 +38,8 @@
     "grunt-google-cdn": "~0.2.0",
     "grunt-ngmin": "~0.0.2",
     "grunt-haml": "~0.6.1",
-    "karma-ng-scenario": "~0.1.0"
+    "karma-ng-scenario": "~0.1.0",
+    "grunt-replace": "~0.4.4"
   },
   "engines": {
     "node": ">=0.8.0"

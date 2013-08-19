@@ -23,4 +23,4 @@ angular.module('quizApp', ['ng-firebase', 'ng-firebase-simple-login'])
       .otherwise
         redirectTo: '/'
 
-  .constant('FIREBASE_URL', 'https://quiz-test.firebaseIO.com/')
+  .constant('FIREBASE_URL', '@@FIREBASE_URL')

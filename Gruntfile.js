@@ -22,12 +22,28 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var config = require('./config.json');
+
   try {
     yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
   } catch (e) {}
 
   grunt.initConfig({
     yeoman: yeomanConfig,
+    replace: {
+      dist: {
+        options: {
+          variables: config.options,
+          prefix: '@@'
+        },
+        files: [{
+          cwd: '.tmp',
+          expand: true,
+          src: ['**/*.{js,html}'],
+          dest: '.tmp/'
+        }]
+      }
+    },
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -43,7 +59,7 @@ module.exports = function (grunt) {
       },
       haml:{
         files: ['<%= yeoman.app %>/{,*/}*.haml'],
-        tasks: ['haml:dist']
+        tasks: ['haml']
       },
       karma: {
         files: [
@@ -61,7 +77,8 @@ module.exports = function (grunt) {
           '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
+        ],
+        tasks: ['replace']
       }
     },
     connect: {
@@ -273,8 +290,7 @@ module.exports = function (grunt) {
             src: ['*.html', 'views/*.html'],
             dest: '<%= yeoman.dist %>'
           }
-        ],
-        tasks: ['haml:dist']
+        ]
       }
     },
     // Put files not handled in other tasks here
@@ -305,7 +321,7 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'coffee:dist',
-        'haml:dist',
+        'haml',
         'compass:server'
       ],
       test: [
@@ -314,11 +330,10 @@ module.exports = function (grunt) {
         'compass'
       ],
       dist: [
-        'haml:dist',
         'coffee',
+        'haml',
         'compass:dist',
         'imagemin',
-        'htmlmin'
       ]
     },
     karma: {
@@ -370,6 +385,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
+      'replace',
       'connect:livereload',
       'open',
       'watch'
@@ -379,6 +395,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test:unit', [
     'clean:server',
     'concurrent:test',
+    'replace',
     'connect:test',
     'karma:unit'
   ]);
@@ -386,6 +403,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test:watch', [
     'clean:server',
     'concurrent:test',
+    'replace',
     'connect:test',
     'karma:uwatch',
     'watch'
@@ -395,6 +413,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test:e2e', [
     'clean:server',
     'concurrent:test',
+    'replace',
     'connect:livereload',
     'karma:e2e'
   ]);
@@ -405,9 +424,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'haml:dist',
-    'useminPrepare',
     'concurrent:dist',
+    'replace',
+    'useminPrepare',
+    'htmlmin',
     'concat',
     'copy',
     'cdnify',
