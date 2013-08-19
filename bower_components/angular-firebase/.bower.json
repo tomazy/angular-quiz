@@ -1,0 +1,21 @@
+{
+  "name": "angular-firebase",
+  "version": "0.0.2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "angular": "~1.x"
+  },
+  "homepage": "https://github.com/petebacondarwin/angular-firebase",
+  "_release": "0.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.2",
+    "commit": "57443df17b9c140363a77792e9ea9f278f5fe0e6"
+  },
+  "_source": "git://github.com/petebacondarwin/angular-firebase.git",
+  "_target": "~0.0.2"
+}
