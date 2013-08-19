@@ -1,36 +1,37 @@
-
 describe 'Services', ->
-  fbNamespace = window
-  fbNamespace.Firebase = ->
+  FIREBASE_URL = 'https://some.url.com'
+
+  fbNamespace =
+    Firebase: ->
 
   beforeEach(module('quizApp'))
 
   beforeEach ->
     module ($provide) ->
       $provide.value('Firebase', fbNamespace.Firebase)
+      $provide.constant('FIREBASE_URL', FIREBASE_URL)
       null
 
   describe 'Service: DBConnection', ->
 
-    fbNamespace = window
-    fbNamespace.Firebase = ->
-
     it 'should use Firebase', ->
-      spyOn(fbNamespace, 'Firebase').andCallThrough()
+      spyOn(fbNamespace, 'Firebase')
 
-      inject (DBConnection, FIREBASE_URL)->
-        expect(fbNamespace.Firebase).toHaveBeenCalledWith(FIREBASE_URL)
+      inject (DBConnection)-> #noop
+
+      expect(fbNamespace.Firebase).toHaveBeenCalledWith(FIREBASE_URL)
 
   describe 'Service: DB', ->
 
     DBConnection = null
-    onValue = jasmine.createSpy('on')
-    setSpy = jasmine.createSpy('set')
+    setSpy = null
 
     beforeEach ->
+      setSpy = jasmine.createSpy('set')
+
       DBConnection = jasmine.createSpyObj('DBConnection', ['child'])
       DBConnection.child.andReturn
-        on: onValue
+        on: jasmine.createSpy('on')
         set: setSpy
 
       module ($provide) ->

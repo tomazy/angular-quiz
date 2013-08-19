@@ -66,7 +66,7 @@ module.exports = function (grunt) {
           '{.tmp,<%= yeoman.app %>}/scripts/**/*.js',
           '{.tmp,<%= yeoman.app %>}/test/spec/**/*.js'
         ],
-        tasks: ['karma:uwatch:run']
+        tasks: ['replace', 'karma:uwatch:run']
       },
       livereload: {
         options: {
