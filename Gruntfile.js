@@ -100,6 +100,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
+          port: 8889,
           middleware: function (connect) {
             return [
               mountFolder(connect, '.tmp'),
@@ -404,6 +405,7 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'replace',
+    'connect:livereload',
     'connect:test',
     'karma:uwatch',
     'watch'
