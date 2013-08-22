@@ -1,12 +1,4 @@
 angular.module('quizApp')
-  .factory 'safeApply', ($rootScope) ->
-    safeApply = (fn) ->
-      phase = $rootScope.$$phase;
-      if phase == '$apply' or phase == '$digest'
-        fn()
-      else
-        $rootScope.$apply(fn);
-
   .factory 'AuthService', ($q, $log, DBConnection, FirebaseSimpleLogin, safeApply) ->
     currentUser = null
 
