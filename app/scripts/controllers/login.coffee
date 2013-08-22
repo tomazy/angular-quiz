@@ -1,12 +1,12 @@
 angular.module('quizApp')
 
-  .controller 'LogInCtrl', ($scope, $location, AuthService, Flash, LoginValidator) ->
+  .controller 'LogInCtrl', ($scope, $location, AuthService, Flash, CredentialsValidator) ->
     onError = (error) ->
       Flash.now.error(error)
 
     $scope.login = ->
       Flash.now.reset()
-      if LoginValidator.validate($scope, onError)
+      if CredentialsValidator.validate($scope, onError)
         $scope.processing = true
 
         success = ->
