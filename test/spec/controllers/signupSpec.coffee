@@ -6,7 +6,7 @@ describe 'Controller: SignUpCtrl', ->
   SignUpCtrl = null
   scope = null
   location = null
-  AuthService = null
+  Auth = null
   signupPromise = null
   Flash = null
 
@@ -15,7 +15,7 @@ describe 'Controller: SignUpCtrl', ->
     location = jasmine.createSpyObj('location', ['path'])
 
     signupPromise = jasmine.createSpyObj('signupPromise', ['then'])
-    AuthService =
+    Auth =
       signup: jasmine.createSpy().andReturn(signupPromise)
 
     Flash =
@@ -25,7 +25,7 @@ describe 'Controller: SignUpCtrl', ->
     SignUpCtrl = $controller 'SignUpCtrl',
       $scope: scope
       $location: location
-      AuthService: AuthService
+      Auth: Auth
       Flash: Flash
 
   describe 'signup', ->
@@ -34,7 +34,7 @@ describe 'Controller: SignUpCtrl', ->
       beforeEach -> scope.signup()
 
       it 'should not signup', ->
-        expect(AuthService.signup).not.toHaveBeenCalled()
+        expect(Auth.signup).not.toHaveBeenCalled()
         expect(location.path).not.toHaveBeenCalled()
 
       it 'should have errors', ->
@@ -50,7 +50,7 @@ describe 'Controller: SignUpCtrl', ->
         expect(Flash.now.error).not.toHaveBeenCalled()
 
       it 'should signup', ->
-        expect(AuthService.signup).toHaveBeenCalled()
+        expect(Auth.signup).toHaveBeenCalled()
         expect(signupPromise.then).toHaveBeenCalled()
 
       describe 'signup success', ->

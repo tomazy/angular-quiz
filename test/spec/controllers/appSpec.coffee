@@ -6,13 +6,13 @@ describe 'Controller: AppCtrl', ->
   AppCtrl = null
   scope = null
   location = null
-  AuthService = null
+  Auth = null
 
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new();
     location = jasmine.createSpyObj('location', ['path'])
-    AuthService = jasmine.createSpyObj('AuthService', ['logout'])
-    AppCtrl = $controller 'AppCtrl', $scope: scope, $location: location, AuthService: AuthService
+    Auth = jasmine.createSpyObj('Auth', ['logout'])
+    AppCtrl = $controller 'AppCtrl', $scope: scope, $location: location, Auth: Auth
 
   describe 'when not authenticated', ->
     beforeEach -> scope.$broadcast '$routeChangeError', null, null, reason: 'ACCESS_DENIED'
@@ -24,7 +24,7 @@ describe 'Controller: AppCtrl', ->
     beforeEach -> scope.logout()
 
     it 'should log out using the authentication service', ->
-      expect(AuthService.logout).toHaveBeenCalled()
+      expect(Auth.logout).toHaveBeenCalled()
 
     it 'should redirect to login page', ->
       expect(location.path).toHaveBeenCalledWith('/login')

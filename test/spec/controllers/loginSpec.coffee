@@ -6,7 +6,7 @@ describe 'Controller: LogInCtrl', ->
   LogInCtrl = null
   scope = null
   location = null
-  AuthService = null
+  Auth = null
   loginPromise = null
   Flash = null
 
@@ -15,7 +15,7 @@ describe 'Controller: LogInCtrl', ->
     location = jasmine.createSpyObj('location', ['path'])
 
     loginPromise = jasmine.createSpyObj('loginPromise', ['then'])
-    AuthService =
+    Auth =
       login: jasmine.createSpy().andReturn(loginPromise)
 
     Flash =
@@ -25,7 +25,7 @@ describe 'Controller: LogInCtrl', ->
     LogInCtrl = $controller 'LogInCtrl',
       $scope: scope
       $location: location
-      AuthService: AuthService
+      Auth: Auth
       Flash: Flash
 
   describe 'login', ->
@@ -34,7 +34,7 @@ describe 'Controller: LogInCtrl', ->
       beforeEach -> scope.login()
 
       it 'should not login', ->
-        expect(AuthService.login).not.toHaveBeenCalled()
+        expect(Auth.login).not.toHaveBeenCalled()
         expect(location.path).not.toHaveBeenCalled()
 
       it 'should have errors', ->
@@ -50,7 +50,7 @@ describe 'Controller: LogInCtrl', ->
         expect(Flash.now.error).not.toHaveBeenCalled()
 
       it 'should login', ->
-        expect(AuthService.login).toHaveBeenCalled()
+        expect(Auth.login).toHaveBeenCalled()
         expect(loginPromise.then).toHaveBeenCalled()
 
       describe 'login success', ->

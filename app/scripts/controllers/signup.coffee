@@ -1,6 +1,6 @@
 angular.module('quizApp')
 
-  .controller 'SignUpCtrl', ($scope, $location, AuthService, Flash, CredentialsValidator) ->
+  .controller 'SignUpCtrl', ($scope, $location, Auth, Flash, CredentialsValidator) ->
     onError = (error) ->
       Flash.now.error(error)
 
@@ -16,4 +16,4 @@ angular.module('quizApp')
           Flash.now.error(error.message || error)
           $scope.processing = false
 
-        AuthService.signup($scope.email, $scope.password).then(success, error)
+        Auth.signup($scope.email, $scope.password).then(success, error)

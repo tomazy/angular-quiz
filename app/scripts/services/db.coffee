@@ -1,9 +1,9 @@
 angular.module('quizApp')
-  .factory 'DBConnection', (Firebase, FIREBASE_URL) ->
+  .factory 'FirebaseDatabaseConnection', (Firebase, FIREBASE_URL) ->
     new Firebase(FIREBASE_URL)
 
-  .factory 'DB', (DBConnection, safeApply, $q, $log) ->
-    conn = DBConnection
+  .factory 'DB', (FirebaseDatabaseConnection, safeApply, $q, $log) ->
+    conn = FirebaseDatabaseConnection
 
     db =
       read: (resource) ->

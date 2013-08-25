@@ -12,36 +12,36 @@ describe 'Services', ->
       $provide.constant('FIREBASE_URL', FIREBASE_URL)
       null
 
-  describe 'Service: DBConnection', ->
+  describe 'Service: FirebaseDatabaseConnection', ->
 
     it 'should use Firebase', ->
       spyOn(fbNamespace, 'Firebase')
 
-      inject (DBConnection)-> #noop
+      inject (FirebaseDatabaseConnection)-> #noop
 
       expect(fbNamespace.Firebase).toHaveBeenCalledWith(FIREBASE_URL)
 
   describe 'Service: DB', ->
 
-    DBConnection = null
+    FirebaseDatabaseConnection = null
     setSpy = null
 
     beforeEach ->
       setSpy = jasmine.createSpy('set')
 
-      DBConnection = jasmine.createSpyObj('DBConnection', ['child'])
-      DBConnection.child.andReturn
+      FirebaseDatabaseConnection = jasmine.createSpyObj('FirebaseDatabaseConnection', ['child'])
+      FirebaseDatabaseConnection.child.andReturn
         on: jasmine.createSpy('on')
         set: setSpy
 
       module ($provide) ->
-        $provide.value('DBConnection', DBConnection)
+        $provide.value('FirebaseDatabaseConnection', FirebaseDatabaseConnection)
         null
 
     describe 'reading data', ->
       it 'should use db connection', inject (DB) ->
         DB.read('something')
-        expect(DBConnection.child).toHaveBeenCalledWith('something')
+        expect(FirebaseDatabaseConnection.child).toHaveBeenCalledWith('something')
 
       it 'should return a promise', inject (DB)->
         result = DB.read('abc')
@@ -50,7 +50,7 @@ describe 'Services', ->
     describe 'writing data', ->
       it 'should use db connection', inject (DB) ->
         DB.write('abc', {})
-        expect(DBConnection.child).toHaveBeenCalledWith('abc')
+        expect(FirebaseDatabaseConnection.child).toHaveBeenCalledWith('abc')
 
       it 'should return a promise', inject (DB)->
         result = DB.write('abc', {})

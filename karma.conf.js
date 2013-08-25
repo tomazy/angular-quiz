@@ -8,7 +8,7 @@ module.exports = function(karma){
 
   // list of files / patterns to load in the browser
   karma.files = [
-    'app/bower_components/angular/angular.js',
+    'app/bower_components/angular-unstable/angular.js',
     'app/bower_components/angular-mocks/angular-mocks.js',
     '.tmp/scripts/**/*.js',
     '.tmp/test/spec/specHelper.js',
