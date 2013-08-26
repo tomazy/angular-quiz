@@ -22,7 +22,7 @@ module.exports = function(karma){
 
   // test results reporter to use
   // possible values: dots || progress || growl
-  karma.reporters = ['progress'];
+  karma.reporters = ['progress', 'coverage'];
 
   // web server port
   karma.port = 8080;
@@ -56,4 +56,9 @@ module.exports = function(karma){
   // Continuous Integration mode
   // if true, it capture browsers, run tests and exit
   karma.singleRun = false;
-}
+
+  karma.preprocessors = {
+    '.tmp/scripts/**/*.js': 'coverage'
+  };
+
+};
