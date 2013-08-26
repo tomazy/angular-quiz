@@ -1,8 +1,9 @@
 angular.module('quizApp')
 
-  .controller 'MainCtrl', ($scope, currentUser, Quiz, $log, $q) ->
+  .controller 'MainCtrl', ($scope, currentUser, Quiz, Flash, $q, $log) ->
     $scope.disabled = false
     $scope.questions = false
+
     $scope.status = "Loading questions. Please wait..."
 
     init = []
@@ -40,6 +41,8 @@ angular.module('quizApp')
     $scope.submitResponse = ->
       $scope.processing = true
 
+      Flash.now.reset()
+
       response = {}
       for q in $scope.questions
         response[q.name] = {}
@@ -48,11 +51,11 @@ angular.module('quizApp')
 
       Quiz.submitResponse(currentUser.id, response)
         .then ->
-          $scope.success = "Thanks for submitting the response!"
+          Flash.now.success "Thanks for submitting the response!"
           $scope.response = response
           $scope.disabled = true
         , (error) ->
-          $scope.error = "Failed to save the response: #{error}"
+          Flash.now.error "Failed to save the response: #{error}"
           $log.error(error)
 
       $scope

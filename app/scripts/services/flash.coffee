@@ -7,6 +7,7 @@ angular.module('quizApp')
       for a in ['errors', 'successes']
         now[a] = future[a]
         future[a] = []
+      null
 
     create = (flash) ->
       result =

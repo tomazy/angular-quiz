@@ -34,11 +34,11 @@
           .error(ng-repeat="error in flash.errors")
             {{error}}
 
-        .alert.alert-info(ng-show="flash.infos")
+        .alert.alert-info(ng-show="flash.infos.length")
           .info(ng-repeat="info in flash.infos")
             {{info}}
 
-        .alert.alert-success(ng-show="flash.successes")
+        .alert.alert-success(ng-show="flash.successes.length")
           .success(ng-repeat="success in flash.successes")
             {{success}}
 
