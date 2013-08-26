@@ -14,6 +14,16 @@ describe 'Controller: AppCtrl', ->
     Auth = jasmine.createSpyObj('Auth', ['logout'])
     AppCtrl = $controller 'AppCtrl', $scope: scope, $location: location, Auth: Auth
 
+  describe 'Auth change notifications', ->
+    user = null
+
+    beforeEach ->
+      user = {}
+      scope.$broadcast 'authStatusChanged', user
+
+    it 'should assign current user to the scope', ->
+      expect(scope.currentUser).toBe(user)
+
   describe 'when not authenticated', ->
     beforeEach -> scope.$broadcast '$routeChangeError', null, null, reason: 'ACCESS_DENIED'
 

@@ -25,19 +25,23 @@
 
     .app(style="display: none" ng-show="true" ng-app="quizApp" ng-controller="AppCtrl")
 
-      .alert.alert-error(ng-show="flash.errors.length")
-        .error(ng-repeat="error in flash.errors")
-          {{error}}
+      .current-user
+        {{currentUser.email}}
+        %a.logout(ng-click="logout()" data-test="logout" href="#/login" ng-show="currentUser") Log out
 
-      .alert.alert-info(ng-show="flash.infos")
-        .info(ng-repeat="info in flash.infos")
-          {{info}}
+      .clear
+        .alert.alert-error(ng-show="flash.errors.length")
+          .error(ng-repeat="error in flash.errors")
+            {{error}}
 
-      .alert.alert-success(ng-show="flash.successes")
-        .success(ng-repeat="success in flash.successes")
-          {{success}}
+        .alert.alert-info(ng-show="flash.infos")
+          .info(ng-repeat="info in flash.infos")
+            {{info}}
 
-      %a.logout(ng-click="logout()" data-test="logout" href="#/login") Log out
+        .alert.alert-success(ng-show="flash.successes")
+          .success(ng-repeat="success in flash.successes")
+            {{success}}
+
       .container(ng-view="")
 
     %script(src="//cdn.firebase.com/v0/firebase.js")

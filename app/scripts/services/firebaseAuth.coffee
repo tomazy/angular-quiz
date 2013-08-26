@@ -1,10 +1,13 @@
 angular.module('quizApp')
-  .factory 'FirebaseSimpleAuth', (FirebaseDatabaseConnection, FirebaseSimpleLogin, $q, safeApply, $log) ->
+  .factory 'FirebaseSimpleAuth', (FirebaseDatabaseConnection, FirebaseSimpleLogin, $rootScope, $q, safeApply, $log) ->
 
     deferredLogin = $q.defer()
     currentUser = null
 
+
     auth = new FirebaseSimpleLogin FirebaseDatabaseConnection, (error, user) ->
+      $rootScope.$broadcast('authStatusChanged', user)
+
       safeApply ->
         if error
           $log.error("FirebaseSimpleAuth: #{error}")

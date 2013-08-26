@@ -44,6 +44,21 @@ describe 'Service: FirebaseSimpleAuth', ->
         promise = FirebaseSimpleAuth.requestCurrentUser()
       promise
 
+    describe "Event", ->
+
+      $rootScope = null
+
+      beforeEach ->
+        $rootScope = jasmine.createSpyObj('$rootScope', ['$broadcast', '$apply'])
+        module ($provide) ->
+          $provide.factory('$rootScope', -> $rootScope)
+          null
+
+      it 'should broadcast an event when auth status changes', inject ($rootScope)->
+        user = {}
+        fbAuthChangeCallback(null, user)
+        expect($rootScope.$broadcast).toHaveBeenCalledWith('authStatusChanged', user)
+
     describe "Sign Up", ->
 
       doSignup = (email='email', pass='pass') ->

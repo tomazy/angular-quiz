@@ -8,14 +8,12 @@ html, body {
   margin: 20px;
 }
 
-body {
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+.current-user{
+  float: right;
 }
 
-.logout{
-  float: right;
+.clear{
+  clear: both;
 }
 
 .correct{
