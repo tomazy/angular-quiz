@@ -1,7 +1,7 @@
 angular.module('quizApp')
   .factory 'FirebaseSimpleAuth', (FirebaseDatabaseConnection, FirebaseSimpleLogin, $q, safeApply, $log) ->
 
-    deferredLogin = null
+    deferredLogin = $q.defer()
     currentUser = null
 
     auth = new FirebaseSimpleLogin FirebaseDatabaseConnection, (error, user) ->
@@ -16,8 +16,8 @@ angular.module('quizApp')
         else
           $log.info("FirebaseSimpleAuth: User not authenticated!!!")
           currentUser = null
-          deferredLogin = null
           deferredLogin.reject(reason: 'ACCESS_DENIED') if deferredLogin
+          deferredLogin = null
 
     service =
       signup: (email, pass) ->

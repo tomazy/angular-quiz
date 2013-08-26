@@ -162,6 +162,14 @@ describe 'Service: FirebaseSimpleAuth', ->
             fbAuthChangeCallback(null, null)
             expect(errBack).toHaveBeenCalledWith(reason: 'ACCESS_DENIED')
 
+          context "Existing session", ->
+            it "should connect to session", ->
+              currUser = {}
+              doRequestCurrentUser().then(succBack, errBack)
+              fbAuthChangeCallback(null, currUser)
+              expect(succBack).toHaveBeenCalledWith(currUser)
+
+
     describe "Log out", ->
       doLogout = ->
         inject (FirebaseSimpleAuth) ->
