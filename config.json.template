@@ -1,6 +1,18 @@
 {
-  "options": {
+  "default": {
     "UA":           "<your google analytics code>",
-    "FIREBASE_URL": "https://your-database.firebaseIO.com/"
+    "DOMAIN":       "example.com"
+  },
+
+  "production": {
+    "FIREBASE_URL": "https://your-production.firebaseio.com/"
+  },
+
+  "development": {
+    "FIREBASE_URL": "https://your-development.firebaseio.com/"
+  },
+
+  "test": {
+    "FIREBASE_URL": "https://your-test.firebaseio.com/"
   }
 }

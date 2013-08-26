@@ -12,6 +12,13 @@ var mountFolder = function (connect, dir) {
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+
+function loadEnv(environment){
+  var config = require('./config.json');
+  var extend = require('util')._extend;
+  return extend(config.default, config[environment]);
+}
+
 module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -22,8 +29,6 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
-  var config = require('./config.json');
-
   try {
     yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
   } catch (e) {}
@@ -33,7 +38,7 @@ module.exports = function (grunt) {
     replace: {
       dist: {
         options: {
-          variables: config.options,
+          variables: loadEnv('development'),
           prefix: '@@'
         },
         files: [{
@@ -378,6 +383,10 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('environment', function(target){
+    grunt.config.set('replace.dist.options.variables', loadEnv(target));
+  });
+
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
@@ -413,6 +422,7 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('test:e2e', [
+    'environment:test',
     'clean:server',
     'concurrent:test',
     'replace',
@@ -425,6 +435,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'environment:production',
     'clean:dist',
     'concurrent:dist',
     'replace',
