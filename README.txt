@@ -4,6 +4,8 @@ Requirements:
   gem install haml
 
 Installation:
+  npm install -g bower
+  npm install -g grunt-cli
   npm install
   bower install
 
