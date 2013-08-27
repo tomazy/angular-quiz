@@ -47,12 +47,10 @@
     %script(src="//cdn.firebase.com/v0/firebase.js")
     %script(src='//cdn.firebase.com/v0/firebase-simple-login.js')
 
-    %script(src="bower_components/angular-unstable/angular.js")
 
     /build:js(app) scripts/modules.js
+    %script(src="bower_components/angular-unstable/angular.js")
     %script(src="bower_components/angular-firebase/ng-firebase.js")
-    %script(src="bower_components/angular-firebase/ng-firebase-collection.js")
-    %script(src="bower_components/angular-firebase/ng-firebase-binding.js")
     /endbuild
 
     /build:js({.tmp,app}) scripts/scripts.js
