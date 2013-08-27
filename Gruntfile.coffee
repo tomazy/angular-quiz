@@ -288,13 +288,21 @@ module.exports = (grunt) ->
           ]
 
   grunt.registerTask 'environment', (target) ->
+    grunt.log.writeln("Loading environment: #{target}")
     grunt.config.set('replace.dist.options.variables', loadEnv(target))
+
+  grunt.registerTask 'set-environment', () ->
+    env = 'development'
+    env = 'production' if grunt.option('production')
+    env = 'test'       if grunt.option('test')
+    grunt.task.run ["environment:#{env}"]
 
   grunt.registerTask 'server', (target) ->
     if target == 'dist'
       grunt.task.run(['build', 'open', 'connect:dist:keepalive'])
 
     grunt.task.run [
+      'set-environment',
       'clean:server',
       'concurrent:server',
       'replace',
@@ -335,7 +343,7 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'build', [
-    'environment:production',
+    'set-environment',
     'clean:dist',
     'concurrent:dist',
     'replace',
