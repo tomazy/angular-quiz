@@ -44,14 +44,10 @@
         },
         {
           "value": "e",
-          "desc":"<p>+<br>"
-        },
-        {
-          "value": "f",
           "desc":"none of these"
         },
         {
-          "value": "g",
+          "value": "f",
           "desc":"all of these"
         }
       ]
@@ -117,6 +113,14 @@
         "a":true,
         "c":false
       },
+      "q002":{
+        "a":false,
+        "b":false,
+        "c":true,
+        "d":false,
+        "e":false,
+        "f":false
+      },
       "q004":{
         "b":false,
         "a":true
@@ -125,15 +129,6 @@
         "b":false,
         "a":true,
         "c":false
-      },
-      "q002":{
-        "e":false,
-        "b":false,
-        "d":false,
-        "g":false,
-        "a":false,
-        "c":true,
-        "f":false
       },
       "q005":{
         "b":false,
