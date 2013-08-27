@@ -16,4 +16,4 @@ Development
 
 Deployment
   grunt build --production
-  # copy `dist` directory to your server
+  # copy contents of "./dist" directory to your server

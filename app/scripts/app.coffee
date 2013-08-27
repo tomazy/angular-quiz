@@ -7,8 +7,8 @@ angular.module('quizApp', ['ng-firebase', 'ng-firebase-simple-login'])
     $routeProvider
 
       .when '/',
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+        templateUrl: 'views/quiz.html',
+        controller: 'QuizCtrl',
         resolve:
           currentUser: requireCurrentUser
 
@@ -24,3 +24,4 @@ angular.module('quizApp', ['ng-firebase', 'ng-firebase-simple-login'])
         redirectTo: '/'
 
   .constant('FIREBASE_URL', '@@FIREBASE_URL')
+

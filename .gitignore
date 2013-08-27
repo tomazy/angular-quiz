@@ -6,3 +6,4 @@ dist
 app/bower_components
 .DS_Store
 coverage
+*.log

@@ -21,6 +21,28 @@ html, body {
   color: green;
 }
 
+$invalid: red;
 .invalid{
-  color: red;
+  color: $invalid;
+}
+
+.question {
+  margin-bottom: 2em;
+
+  .description {
+    font-weight: bold;
+  }
+}
+
+.inline-answer{
+  width: 5em;
+}
+
+.code label {
+  font-family: monospace;
+}
+
+input.invalid{
+  border-color: $invalid;
+  color: $invalid;
 }
