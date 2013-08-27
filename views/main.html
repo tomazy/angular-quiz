@@ -1,5 +1,6 @@
 <h1>Welcome to the Quiz!</h1>
 <button class="btn" ng-click="showCorrectAnswers()" ng-show="response">Show Answers</button>
+<div class="status" ng-show="status">{{status}}</div>
 <form name="quiz">
 <ol class="questions">
 <li ng-repeat="question in questions">
