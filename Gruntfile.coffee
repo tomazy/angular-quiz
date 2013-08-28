@@ -269,7 +269,7 @@ module.exports = (grunt) ->
       uwatch:
         configFile: 'karma.conf.js'
         background: true
-        browsers: ['Chrome']
+        browsers: ['PhantomJS']
     cdnify:
       dist:
         html: ['<%= yeoman.dist %>/*.html']
