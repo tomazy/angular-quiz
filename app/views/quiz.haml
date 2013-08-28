@@ -5,7 +5,7 @@
   %questions
     %question(name="q001")
       %description
-        &= "Which is not an advantage of using a closure?"
+        Which is not an advantage of using a closure?
 
       %choices
         %choice(value="a") Prevent pollution of global scope
@@ -15,7 +15,8 @@
 
     %question(name="q002")
       %description
-        &= "To create a columned list of two­line email subjects and dates for a master­detail view, which are the most semantically correct?"
+        To create a columned list of two­line email subjects and dates for a
+        master­detail view, which are the most semantically correct?
 
       %choices
         %choice(value="a" class="code")&= "<div>+</span>"
@@ -27,7 +28,7 @@
 
     %question(name="q003")
       %description
-        &= "To pass an array of strings to a function, you should not use..."
+        To pass an array of strings to a function, you should not use...
 
       %choices
         %choice(value="a" class="code") fn.apply(this, stringsArray)
@@ -39,11 +40,13 @@
         %inline_answer(name="a1")
         and
         %inline_answer(name="a2")
-        would be the HTML tags you would use to display a menu item and its description.
+          would be the HTML tags you would use to display a menu item and its
+          description.
 
     %question(name="q005")
       %description
-        &= "Given <div id=”outer”><div class=”inner”></div></div>, which of these two is the most performant way to select the inner div?"
+        &= "Given <div id=”outer”><div class=”inner”></div></div>,"
+        which of these two is the most performant way to select the inner div?
 
       %choices
         %choice(value="a" class="code") getElementById("outer").children[0]
@@ -51,7 +54,7 @@
 
     %question(name="q006")
       %description
-        &= "Given this:"
+        Given this:
       %pre
         :preserve
           angular.module(‘myModule’).service(‘myService', function(){
@@ -68,10 +71,15 @@
               }
             }
           }
-      %p Which message will be returned by injecting this service and executing 'myService.getMessage()'?
+      %p
+        Which message will be returned by injecting this service and executing
+        'myService.getMessage()'?
       %choices
         %choice(value="a") "Message One!"
         %choice(value="b") "Message Two!"
         %choice(value="c") "Message Three!"
 
-%button.btn.btn-large.btn-primary(type="submit" data-test="submit" ng-click="submitResponse()" ng-show="quiz.ready && !quiz.disabled" ng-disabled="processing") Submit
+%button.btn.btn-large.btn-primary(type="submit"
+  ng-click="submitResponse()"
+  ng-show="quiz.ready && !quiz.disabled"
+  ng-disabled="processing") Submit
