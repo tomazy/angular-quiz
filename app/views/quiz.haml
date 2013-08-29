@@ -1,6 +1,10 @@
 %h1 Welcome to the Quiz!
-%button.btn(ng-click="showCorrectAnswers()" ng-show="quiz.disabled") Show Answers
+
+%button.btn(ng-click="showCorrectAnswers()" ng-show="quiz.disabled")
+  Show Answers
+
 .status(ng-show="status") {{status}}
+
 %quiz(ng-show="quiz.ready")
   %questions
     %question(name="q001")
@@ -23,8 +27,8 @@
         %choice(value="b" class="code")&= "<tr>+<td>"
         %choice(value="c" class="code")&= "<ul>+<li>"
         %choice(value="d" class="code")&= "<p>+<br>"
-        %choice(value="e")&= "none of these"
-        %choice(value="f")&= "all of these"
+        %choice(value="e") none of these
+        %choice(value="f") all of these
 
     %question(name="q003")
       %description
@@ -40,8 +44,8 @@
         %inline_answer(name="a1")
         and
         %inline_answer(name="a2")
-          would be the HTML tags you would use to display a menu item and its
-          description.
+        would be the HTML tags you would use to display a menu item and its
+        description.
 
     %question(name="q005")
       %description

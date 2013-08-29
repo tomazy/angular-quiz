@@ -23,9 +23,9 @@
       %script(src="bower_components/es5-shim/es5-shim.js")
       %script(src="bower_components/json3/lib/json3.min.js")
 
-    .app(style="display: none" ng-show="true" ng-app="quizApp" ng-controller="AppCtrl")
+    .app(style="display: none" ng-app="quizApp" ng-controller="AppCtrl" ng-show="true")
 
-      .current-user
+      .float-right
         {{currentUser.email}}
         %a.logout(ng-click="logout()" data-test="logout" href="#/login" ng-show="currentUser") Log out
 
