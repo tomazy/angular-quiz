@@ -1,13 +1,16 @@
 // Karma E2E configuration
 
 module.exports = function(karma){
+  'use strict';
+
   // base path, that will be used to resolve files and exclude
   karma.basePath = '';
 
-  karma.frameworks = ['ng-scenario']
+  karma.frameworks = ['ng-scenario'];
 
   // list of files / patterns to load in the browser
   karma.files = [
+    '.tmp/test/e2e/lib/*.js',
     '.tmp/test/e2e/**/*.js'
   ];
 
@@ -57,4 +60,4 @@ module.exports = function(karma){
   };
   // URL root prevent conflicts with the site root
   karma.urlRoot = '_karma_';
-}
+};

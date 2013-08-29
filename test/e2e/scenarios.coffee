@@ -3,7 +3,7 @@ DEF_PASS = 'password'
 
 class BasePage
   logout: ->
-    element('[data-test="logout"]').click()
+    testElement('logout').click()
 
 class HomePage extends BasePage
   title: ->
@@ -17,15 +17,15 @@ class LoginPage extends BasePage
     element('legend').text()
 
   goToSignUpPage: ->
-    element('[data-test="signup"]').click()
+    testElement('signup').click()
 
   expectToBeDisplayed: ->
     expect(@title()).toBe('Log in')
 
   login: (email = DEF_EMAIL, pass = DEF_PASS, done) ->
-    input('email').enter(email)
-    input('password').enter(pass)
-    element('[data-test="login"]').click()
+    testInput('email').enter(email)
+    testInput('password').enter(pass)
+    testElement('login').click()
 
 class SignUpPage extends BasePage
   title: ->
@@ -34,31 +34,12 @@ class SignUpPage extends BasePage
   expectToBeDisplayed: ->
     expect(@title()).toBe('Sign up')
 
-homePage = -> new HomePage
-loginPage = -> new LoginPage
-signupPage = -> new SignUpPage
+homePage    = -> new HomePage
+loginPage   = -> new LoginPage
+signupPage  = -> new SignUpPage
 currentPage = -> new BasePage
 
-angular.scenario.dsl 'waitFor', ->
-  (name, check, timout = 5) ->
-    @addFutureAction "wait for #{name}", ($window, $document, done) ->
-      currTime = -> (new Date).getTime()
-      finish = currTime() + 5 * 1000
-
-      test = ->
-        if currTime() > finish
-          done "Timed out waiting for #{name}"
-        else if check($window, $document)
-          done()
-        else
-          setTimeout(test, 100)
-
-      test()
-
 describe 'Quiz App', ->
-  currentPath = ->
-    browser().location().url()
-
   beforeEach ->
     browser().navigateTo('/')
     currentPage().logout()
