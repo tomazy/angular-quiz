@@ -1,14 +1,14 @@
 describe 'Controller: LogInCtrl', ->
 
-  # load the controller's module
   beforeEach(module('quizApp'));
 
   LogInCtrl = null
+
+  Auth = null
+  Flash = null
   scope = null
   location = null
-  Auth = null
   loginPromise = null
-  Flash = null
 
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new();

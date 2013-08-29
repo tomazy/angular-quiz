@@ -16,12 +16,14 @@ angular.module('quizApp')
 
       Flash.now.reset()
 
-      Quiz.submitResponse(currentUser.id, quiz.response)
-        .then ->
-          Flash.now.success "Thanks for submitting the response!"
-          quiz.disabled = true
-        , (error) ->
-          Flash.now.error "Failed to save the response: #{error}"
+      succBack = ->
+        Flash.now.success "Thanks for submitting the response!"
+        quiz.disabled = true
+
+      errBack = (error) ->
+        Flash.now.error "Failed to save the response: #{error}"
+
+      Quiz.submitResponse(currentUser.id, quiz.response).then(succBack, errBack)
 
       null
 

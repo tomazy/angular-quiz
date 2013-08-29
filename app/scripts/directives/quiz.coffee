@@ -43,10 +43,8 @@ angular.module('quizApp')
     restrict: 'E'
     replace: true
     transclude: true
-    template: """
-      <ol type="a" ng-transclude>
-      </ol>
-      """
+    template: "<ol type='a' ng-transclude></ol>"
+
   .directive 'choice', ->
     restrict: 'E',
     replace: true,

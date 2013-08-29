@@ -2,74 +2,79 @@ describe 'Service: Flash', ->
 
   beforeEach(module('quizApp'))
 
-  rootScopeMock = null
+  $rootScope = null
+
+  getFlash = (name) ->
+    flash = null
+    inject (Flash) ->
+     flash = Flash[name]
+    flash
 
   beforeEach ->
-    rootScopeMock =
-      $on: jasmine.createSpy('$on')
+    $rootScope = jasmine.createSpyObj('$rootScope', ['$on'])
 
-    inject ($rootScope) ->
-      rootScopeMock = $rootScope
-      spyOn(rootScopeMock, '$on')
+    module ($provide) ->
+      $provide.factory "$rootScope", -> $rootScope
+      null
 
   it 'should observe routes', inject (Flash)->
-    expect(rootScopeMock.$on).toHaveBeenCalledWith('$routeChangeSuccess', jasmine.any(Function))
+    expect($rootScope.$on).toHaveBeenCalledWith('$routeChangeSuccess', jasmine.any(Function))
 
   describe 'now', ->
-    subject = (Flash) -> Flash.now
+    subject = -> getFlash('now')
 
     describe 'errors', ->
-      it 'should update the scope', inject (Flash)->
-        subject(Flash).error('abc')
-        subject(Flash).error('def')
-        expect(rootScopeMock.flash.errors).toEqual(['abc', 'def'])
+      it 'should update the scope', ->
+        subject().error('abc')
+        subject().error('def')
+        expect($rootScope.flash.errors).toEqual(['abc', 'def'])
 
     describe 'successes', ->
-      it 'should update the scope', inject (Flash)->
-        subject(Flash).success('abc')
-        expect(rootScopeMock.flash.successes).toEqual(['abc'])
+      it 'should update the scope', ->
+        subject().success('abc')
+        expect($rootScope.flash.successes).toEqual(['abc'])
 
     describe 'resetting', ->
-      it 'should update the scope', inject (Flash)->
-        subject(Flash).success('abc')
-        subject(Flash).error('def')
+      it 'should update the scope', ->
+        subject().success('abc')
+        subject().error('def')
 
-        subject(Flash).reset()
-        expect(rootScopeMock.flash.successes).toEqual([])
-        expect(rootScopeMock.flash.errors).toEqual([])
+        subject().reset()
+        expect($rootScope.flash.successes).toEqual([])
+        expect($rootScope.flash.errors).toEqual([])
 
   describe 'future', ->
-    subject = (Flash) -> Flash.future
+    subject = -> getFlash('future')
 
     futureIsNow = ->
-      cb = rootScopeMock.$on.mostRecentCall.args[1]
+      cb = $rootScope.$on.mostRecentCall.args[1]
       cb()
 
     describe 'errors', ->
-      it 'should update the scope', inject (Flash)->
-        subject(Flash).error('abc')
-        expect(rootScopeMock.flash.errors).toEqual([])
+      it 'should update the scope', ->
+        subject().error('abc')
+        expect($rootScope.flash.errors).toEqual([])
 
         futureIsNow()
-        expect(rootScopeMock.flash.errors).toEqual(['abc'])
+        expect($rootScope.flash.errors).toEqual(['abc'])
 
     describe 'successes', ->
-      it 'should update the scope', inject (Flash)->
-        subject(Flash).success('abc')
-        expect(rootScopeMock.flash.successes).toEqual([])
+      it 'should update the scope', ->
+        subject().success('abc')
+        expect($rootScope.flash.successes).toEqual([])
 
         futureIsNow()
-        expect(rootScopeMock.flash.successes).toEqual(['abc'])
+        expect($rootScope.flash.successes).toEqual(['abc'])
 
     describe 'resetting', ->
-      it 'should update the scope', inject (Flash)->
-        subject(Flash).success('abc')
-        subject(Flash).error('def')
+      it 'should update the scope', ->
+        subject().success('abc')
+        subject().error('def')
 
-        subject(Flash).reset()
-        expect(rootScopeMock.flash.successes).toEqual([])
-        expect(rootScopeMock.flash.errors).toEqual([])
+        subject().reset()
+        expect($rootScope.flash.successes).toEqual([])
+        expect($rootScope.flash.errors).toEqual([])
 
         futureIsNow()
-        expect(rootScopeMock.flash.successes).toEqual([])
-        expect(rootScopeMock.flash.errors).toEqual([])
+        expect($rootScope.flash.successes).toEqual([])
+        expect($rootScope.flash.errors).toEqual([])
