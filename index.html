@@ -5,7 +5,7 @@
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <title>Angular Quiz</title>
 <meta content="width=device-width" name="viewport">
-<link rel="stylesheet" href="styles/27d26b67.main.css">
+<link rel="stylesheet" href="styles/b5382267.main.css">
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -22,33 +22,21 @@ to better experience this site.
 <script src='bower_components/json3/lib/json3.min.js'></script>
 <![endif]-->
 <div class="app" ng-app="quizApp" ng-controller="AppCtrl" ng-show="true" style="display: none">
-<div class="current-user">
+<div class="float-right">
 {{currentUser.email}}
 <a class="logout" data-test="logout" href="#/login" ng-click="logout()" ng-show="currentUser">Log out</a>
 </div>
 <div class="clear">
-<div class="alert alert-error" ng-show="flash.errors.length">
-<div class="error" ng-repeat="error in flash.errors">
-{{error}}
+<div class="alert alert-error" ng-repeat="error in flash.errors">{{error}}</div>
+<div class="alert alert-info" ng-repeat="info in flash.infos">{{info}}</div>
+<div class="alert alert-success" ng-repeat="success in flash.successes">{{success}}</div>
 </div>
-</div>
-<div class="alert alert-info" ng-show="flash.infos.length">
-<div class="info" ng-repeat="info in flash.infos">
-{{info}}
-</div>
-</div>
-<div class="alert alert-success" ng-show="flash.successes.length">
-<div class="success" ng-repeat="success in flash.successes">
-{{success}}
-</div>
-</div>
-</div>
-<div class="container" ng-view=""></div>
+<div class="page container" ng-view=""></div>
 </div>
 <script src="//cdn.firebase.com/v0/firebase.js"></script>
 <script src="//cdn.firebase.com/v0/firebase-simple-login.js"></script>
 <script src="scripts/547f8ea6.modules.js"></script>
-<script src="scripts/8e4184a0.scripts.js"></script>
+<script src="scripts/4f5e25d7.scripts.js"></script>
 </body>
 </html>
 <script>

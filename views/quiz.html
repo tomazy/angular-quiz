@@ -1,71 +1,91 @@
 <h1>Welcome to the Quiz!</h1>
-<button class="btn" ng-click="showCorrectAnswers()" ng-show="quiz.disabled">Show Answers</button>
+<button class="btn" ng-click="showCorrectAnswers()" ng-show="quiz.disabled">
+Show Answers
+</button>
 <div class="status" ng-show="status">{{status}}</div>
 <quiz ng-show="quiz.ready">
-<questions>
+<ol type="1">
+<li>
 <question name="q001">
-<description>
+<div class="description">
 Which is not an advantage of using a closure?
-</description>
-<choices>
-<choice value="a">Prevent pollution of global scope</choice>
-<choice value="b">Encapsulation</choice>
-<choice value="c">Private properties and methods</choice>
-<choice value="d">Allow conditional use of ‘strict mode’</choice>
-</choices>
+</div>
+<ol type="a">
+<li choice="" value="a">Prevent pollution of global scope</li>
+<li choice="" value="b">Encapsulation</li>
+<li choice="" value="c">Private properties and methods</li>
+<li choice="" value="d">Allow conditional use of 'strict mode'</li>
+</ol>
 </question>
+</li>
+<li>
 <question name="q002">
-<description>
-To create a columned list of two­line email subjects and dates for a master­detail view, which are the most semantically correct?
-</description>
-<choices>
-<choice class="code" value="a">&lt;div&gt;+&lt;/span&gt;</choice>
-<choice class="code" value="b">&lt;tr&gt;+&lt;td&gt;</choice>
-<choice class="code" value="c">&lt;ul&gt;+&lt;li&gt;</choice>
-<choice class="code" value="d">&lt;p&gt;+&lt;br&gt;</choice>
-<choice value="e">none of these</choice>
-<choice value="f">all of these</choice>
-</choices>
+<div class="description">
+To create a columned list of two­line email subjects and dates for a
+master­detail view, which are the most semantically correct?
+</div>
+<ol type="a">
+<li choice="" class="code" value="a">&lt;div&gt;+&lt;/span&gt;</li>
+<li choice="" class="code" value="b">&lt;tr&gt;+&lt;td&gt;</li>
+<li choice="" class="code" value="c">&lt;ul&gt;+&lt;li&gt;</li>
+<li choice="" class="code" value="d">&lt;p&gt;+&lt;br&gt;</li>
+<li choice="" value="e">none of these</li>
+<li choice="" value="f">all of these</li>
+</ol>
 </question>
+</li>
+<li>
 <question name="q003">
-<description>
+<div class="description">
 To pass an array of strings to a function, you should not use...
-</description>
-<choices>
-<choice class="code" value="a">fn.apply(this, stringsArray)</choice>
-<choice class="code" value="b">fn.call(this, stringsArray)</choice>
-<choice class="code" value="c">fn.bind(this, stringsArray)</choice>
-</choices>
+</div>
+<ol type="a">
+<li choice="" class="code" value="a">fn.apply(this, stringsArray)</li>
+<li choice="" class="code" value="b">fn.call(this, stringsArray)</li>
+<li choice="" class="code" value="c">fn.bind(this, stringsArray)</li>
+</ol>
 </question>
+</li>
+<li>
 <question name="q004">
-<description>
+<div class="description">
 <inline_answer name="a1"></inline_answer>
 and
 <inline_answer name="a2"></inline_answer>
-would be the HTML tags you would use to display a menu item and its description.
-</description>
+would be the HTML tags you would use to display a menu item and its
+description.
+</div>
 </question>
+</li>
+<li>
 <question name="q005">
-<description>
-Given &lt;div id=”outer”&gt;&lt;div class=”inner”&gt;&lt;/div&gt;&lt;/div&gt;, which of these two is the most performant way to select the inner div?
-</description>
-<choices>
-<choice class="code" value="a">getElementById("outer").children[0]</choice>
-<choice class="code" value="b">getElementsByClassName("inner")[0]</choice>
-</choices>
+<div class="description">
+Given &lt;div id=”outer”&gt;&lt;div class=”inner”&gt;&lt;/div&gt;&lt;/div&gt;,
+which of these two is the most performant way to select the inner div?
+</div>
+<ol type="a">
+<li choice="" class="code" value="a">getElementById("outer").children[0]</li>
+<li choice="" class="code" value="b">getElementsByClassName("inner")[0]</li>
+</ol>
 </question>
+</li>
+<li>
 <question name="q006">
-<description>
+<div class="description">
 Given this:
-</description>
+</div>
 <pre>angular.module(‘myModule’).service(‘myService', function(){&#x000A;  var message = "Message One!"&#x000A;  var getMessage = function(){&#x000A;    return this.message&#x000A;  }&#x000A;  this.message = "Message Two!"&#x000A;  this.getMessage = function(){ return message }&#x000A;  function(){&#x000A;    {&#x000A;      getMessage: getMessage,&#x000A;      message: "Message Three!"&#x000A;    }&#x000A;  }&#x000A;}</pre>
-<p>Which message will be returned by injecting this service and executing 'myService.getMessage()'?</p>
-<choices>
-<choice value="a">"Message One!"</choice>
-<choice value="b">"Message Two!"</choice>
-<choice value="c">"Message Three!"</choice>
-</choices>
+<p>
+Which message will be returned by injecting this service and executing
+'myService.getMessage()'?
+</p>
+<ol type="a">
+<li choice="" value="a">"Message One!"</li>
+<li choice="" value="b">"Message Two!"</li>
+<li choice="" value="c">"Message Three!"</li>
+</ol>
 </question>
-</questions>
+</li>
+</ol>
 </quiz>
-<button class="btn btn-large btn-primary" data-test="submit" ng-click="submitResponse()" ng-disabled="processing" ng-show="quiz.ready &amp;&amp; !quiz.disabled" type="submit">Submit</button>
+<button class="btn btn-large btn-primary" ng-click="submitResponse()" ng-disabled="processing" ng-show="quiz.ready &amp;&amp; !quiz.disabled" type="submit">Submit</button>
