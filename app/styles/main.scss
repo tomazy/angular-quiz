@@ -16,15 +16,18 @@ html, body {
   clear: both;
 }
 
-.correct{
-  font-weight: bold;
-  color: green;
+.control-label{
+  @extend .col-lg-2;
+}
+
+.controls{
+  @extend .col-lg-3;
+  &.offset{
+    @extend .col-lg-offset-2;
+  }
 }
 
 $invalid: red;
-.invalid{
-  color: $invalid;
-}
 
 .question {
   margin-bottom: 2em;
@@ -32,17 +35,32 @@ $invalid: red;
   .description {
     font-weight: bold;
   }
-}
 
-.inline-answer{
-  width: 5em;
-}
+  label{
+    font-weight: normal;
 
-.code label {
-  font-family: monospace;
-}
+    &.correct{
+      font-weight: bold;
+      color: green;
+    }
+  }
 
-input.invalid{
-  border-color: $invalid;
-  color: $invalid;
+  &.invalid, .invalid{
+    color: $invalid;
+  }
+
+  .inline-answer{
+    @extend .form-control;
+    width: 5em;
+    display: inline;
+  }
+
+  .code label {
+    font-family: monospace;
+  }
+
+  input.invalid{
+    border-color: $invalid;
+    color: $invalid;
+  }
 }

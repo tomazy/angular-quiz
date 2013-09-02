@@ -1,6 +1,5 @@
 describe 'Controller: AppCtrl', ->
 
-  # load the controller's module
   beforeEach(module('quizApp'));
 
   AppCtrl = null
@@ -38,4 +37,3 @@ describe 'Controller: AppCtrl', ->
 
     it 'should redirect to login page', ->
       expect(location.path).toHaveBeenCalledWith('/login')
-

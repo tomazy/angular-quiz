@@ -2,49 +2,36 @@ describe 'Controller: LogInCtrl', ->
 
   beforeEach(module('quizApp'));
 
-  LogInCtrl = null
+  ctrl = null
 
   Auth = null
   Flash = null
-  scope = null
   location = null
   loginPromise = null
 
-  beforeEach inject ($controller, $rootScope) ->
-    scope = $rootScope.$new();
+  beforeEach inject ($controller) ->
     location = jasmine.createSpyObj('location', ['path'])
 
     loginPromise = jasmine.createSpyObj('loginPromise', ['then'])
     Auth =
-      login: jasmine.createSpy().andReturn(loginPromise)
+      login: jasmine.createSpy('Auth.login').andReturn(loginPromise)
 
     Flash =
       now: jasmine.createSpyObj('Flash.now', ['error', 'reset'])
       future: jasmine.createSpyObj('Flash.now', ['success'])
 
-    LogInCtrl = $controller 'LogInCtrl',
-      $scope: scope
+    ctrl = $controller 'LogInCtrl',
       $location: location
       Auth: Auth
       Flash: Flash
 
   describe 'login', ->
 
-    context 'invalid', ->
-      beforeEach -> scope.login()
-
-      it 'should not login', ->
-        expect(Auth.login).not.toHaveBeenCalled()
-        expect(location.path).not.toHaveBeenCalled()
-
-      it 'should have errors', ->
-        expect(Flash.now.error).toHaveBeenCalled()
-
     context 'valid', ->
       beforeEach ->
-        scope.email = 'john@example.com'
-        scope.password = 'password'
-        scope.login()
+        ctrl.email = 'john@example.com'
+        ctrl.password = 'password'
+        ctrl.login()
 
       it 'should not have errors', ->
         expect(Flash.now.error).not.toHaveBeenCalled()

@@ -1,20 +1,19 @@
 angular.module('quizApp')
 
-  .controller 'LogInCtrl', ($scope, $location, Auth, Flash, CredentialsValidator) ->
-    onError = (error) ->
-      Flash.now.error(error)
+  .controller 'LogInCtrl', ($location, Auth, Flash) ->
+    self = @
 
-    $scope.login = ->
+    self.login = ->
       Flash.now.reset()
-      if CredentialsValidator.validate($scope, onError)
-        $scope.processing = true
 
-        success = ->
-          Flash.future.success("Welcome!")
-          $location.path('/')
+      self.processing = true
 
-        error = (error) ->
-          Flash.now.error(error.message || error)
-          $scope.processing = false
+      success = ->
+        Flash.future.success("Welcome!")
+        $location.path('/')
 
-        Auth.login($scope.email, $scope.password).then(success, error)
+      error = (error) ->
+        Flash.now.error(error.message || error)
+        self.processing = false
+
+      Auth.login(self.email, self.password).then(success, error)

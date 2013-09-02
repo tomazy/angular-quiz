@@ -2,16 +2,14 @@ describe 'Controller: SignUpCtrl', ->
 
   beforeEach(module('quizApp'));
 
-  SignUpCtrl = null
+  ctrl = null
 
   Auth = null
   Flash = null
-  scope = null
   location = null
   signupPromise = null
 
-  beforeEach inject ($controller, $rootScope) ->
-    scope = $rootScope.$new();
+  beforeEach inject ($controller) ->
     location = jasmine.createSpyObj('location', ['path'])
 
     signupPromise = jasmine.createSpyObj('signupPromise', ['then'])
@@ -22,29 +20,18 @@ describe 'Controller: SignUpCtrl', ->
       now: jasmine.createSpyObj('Flash.now', ['error', 'reset'])
       future: jasmine.createSpyObj('Flash.now', ['success'])
 
-    SignUpCtrl = $controller 'SignUpCtrl',
-      $scope: scope
+    ctrl = $controller 'SignUpCtrl',
       $location: location
       Auth: Auth
       Flash: Flash
 
   describe 'signup', ->
 
-    context 'invalid', ->
-      beforeEach -> scope.signup()
-
-      it 'should not signup', ->
-        expect(Auth.signup).not.toHaveBeenCalled()
-        expect(location.path).not.toHaveBeenCalled()
-
-      it 'should have errors', ->
-        expect(Flash.now.error).toHaveBeenCalled()
-
     context 'valid', ->
       beforeEach ->
-        scope.email = 'john@example.com'
-        scope.password = 'password'
-        scope.signup()
+        ctrl.email = 'john@example.com'
+        ctrl.password = 'password'
+        ctrl.signup()
 
       it 'should not have errors', ->
         expect(Flash.now.error).not.toHaveBeenCalled()

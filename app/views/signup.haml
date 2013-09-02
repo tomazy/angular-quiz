@@ -1,17 +1,26 @@
-%form.form-horizontal(novalidate=true)
+%form.form-horizontal(novalidate name="form")
   %fieldset
     %legend Sign up
-    .control-group
+    .form-group
       %label.control-label(for="email") Email:
       .controls
-        %input#email(type="email" placeholder="Email" ng-model="email" required=true)
-    .control-group
+        %input#email.form-control(type="email"
+          name="email"
+          placeholder="Email"
+          ng-model="ctrl.email"
+          required)
+    .form-group
       %label.control-label(for="password") Password:
       .controls
-        %input#password(type="password" placeholder="Password" ng-model="password" required=true)
-    .control-group
-      .controls
-        %button.btn(type="submit" ng-click="signup()") Sign up!
-    .control-group
-      .controls
+        %input#password.form-control(type="password"
+          name="password"
+          placeholder="Password"
+          ng-model="ctrl.password"
+          required)
+    .form-group
+      .controls.offset
+        %button.btn.btn-default(type="submit" ng-click="ctrl.signup()"
+          ng-disabled="form.$invalid || ctrl.processing") Sign up!
+    .form-group
+      .controls.offset
         %a(href="#/login") Log in

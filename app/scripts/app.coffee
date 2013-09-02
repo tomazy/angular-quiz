@@ -9,18 +9,20 @@ angular.module('quizApp', ['ng-firebase', 'ng-firebase-simple-login'])
 
     $routeProvider
       .when '/',
-        templateUrl: 'views/quiz.html',
-        controller: 'QuizCtrl',
+        templateUrl: 'views/quiz.html'
+        controller: 'QuizCtrl'
         resolve:
           currentUser: requireCurrentUser
 
       .when '/login',
-        templateUrl: 'views/login.html',
+        templateUrl: 'views/login.html'
         controller: 'LogInCtrl'
+        controllerAs: 'ctrl'
 
       .when '/signup',
-        templateUrl: 'views/signup.html',
+        templateUrl: 'views/signup.html'
         controller: 'SignUpCtrl'
+        controllerAs: 'ctrl'
 
       .otherwise
         redirectTo: '/'
