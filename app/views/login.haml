@@ -1,28 +1,6 @@
 %form.form-horizontal(novalidate name="form")
   %fieldset
-    %legend Log in
-    .form-group
-      %label.control-label(for="email") Email:
-      .controls
-        %input#email.form-control(type="email"
-          name="email"
-          data-test="email"
-          ng-model="ctrl.email"
-          placeholder="Email"
-          required)
-    .form-group
-      %label.control-label(for="password") Password:
-      .controls
-        %input#password.form-control(type="password"
-          name="password"
-          data-test="password"
-          ng-model="ctrl.password"
-          placeholder="Password"
-          required)
     .form-group
       .controls.offset
-        %button.btn.btn-default(type="submit" data-test="login" ng-click="ctrl.login()"
-          ng-disabled="form.$invalid || ctrl.processing") Log in
-    .form-group
-      .controls.offset
-        %a(href="#/signup" data-test='signup') Sign up
+        %button.btn.btn-default(type="submit" data-test="login" ng-click="ctrl.start()"
+          ng-disabled="ctrl.processing") Start

@@ -40,6 +40,11 @@ angular.module('quizApp')
         deferredLogin = $q.defer()
         deferredLogin.promise
 
+      anonymous: ->
+        auth.login('anonymous')
+        deferredLogin = $q.defer()
+        deferredLogin.promise
+
       requestCurrentUser: ->
         return $q.when(currentUser) if currentUser
         return deferredLogin.promise if deferredLogin

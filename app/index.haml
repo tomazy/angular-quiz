@@ -26,8 +26,8 @@
     .app(style="display: none" ng-app="quizApp" ng-controller="AppCtrl" ng-show="true")
 
       .float-right
-        {{currentUser.email}}
-        %a.logout(ng-click="logout()" data-test="logout" href="#/login" ng-show="currentUser") Log out
+        {{currentUser}}
+        %a.logout(ng-click="logout()" data-test="logout" href="#/login" ng-show="currentUser") Stop
 
       .clear
         .alert.alert-danger(ng-repeat="error in flash.errors") {{error}}
@@ -52,7 +52,6 @@
     %script(src="scripts/services/flash.js")
     %script(src="scripts/services/db.js")
     %script(src="scripts/services/quiz.js")
-    %script(src="scripts/services/credentialsValidator.js")
     %script(src="scripts/services/firebaseAuth.js")
     %script(src="scripts/services/auth.js")
     %script(src="scripts/directives/quiz.js")
