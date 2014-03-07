@@ -8,7 +8,24 @@ angular.module('quizApp')
         b: "Encapsulation"
         c: "Private properties and methods"
         d: "Allow conditional use of 'strict mode'"
-
+      q002:
+        a: "<div>+</span>"
+        b: "<tr>+<td>"
+        c: "<ul>+<li>"
+        d: "<p>+<br>"
+        e: "none of these"
+        f: "all of these"
+      q003:
+        a: "fn.apply(this, stringsArray)"
+        b: "fn.call(this, stringsArray)"
+        c: "fn.bind(this, stringsArray)"
+      q005:
+        a: "getElementById("outer").children[0]"
+        b: "getElementsByClassName("inner")[0]"
+      q006:
+        a: "Message One!"
+        b: "Message Two!"
+        c: "Message Three!"
 
     $scope.status = "Loading questions. Please wait..."
 
