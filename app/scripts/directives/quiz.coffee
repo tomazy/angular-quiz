@@ -44,6 +44,26 @@ angular.module('quizApp')
       scope.questionName = question.name
       scope.answerName = attrs.value
 
+  .directive 'listElementChoice', ->
+    restrict: 'E',
+    replace: true,
+    transclude: true,
+    require: '^question'
+    scope: true
+    template: """
+    <li>
+      <label class="checkbox"
+         ng-class="{correct: quiz.correct[questionName].answers[answerName].correctValue,
+                    invalid: quiz.correct[questionName].answers[answerName].invalid}">
+        <input type="checkbox" ng-disabled="quiz.disabled" ng-model="quiz.response[questionName][answerName]">
+        <span ng-transclude>{{choice[questionName][answerName]}}</span>
+      </label>
+    </li>
+    """
+    link: (scope, element, attrs, question) ->
+      scope.questionName = question.name
+      scope.answerName = attrs.value
+
   .directive 'inlineAnswer', ->
     restrict: 'E',
     replace: true,

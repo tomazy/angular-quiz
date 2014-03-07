@@ -2,6 +2,14 @@ angular.module('quizApp')
   .controller 'QuizCtrl', ($scope, currentUser, Quiz, Flash) ->
     quiz = $scope.quiz ||= {}
 
+    $scope.choice =
+      q001:
+        a: "Prevent pollution of global scope"
+        b: "Encapsulation"
+        c: "Private properties and methods"
+        d: "Allow conditional use of 'strict mode'"
+
+
     $scope.status = "Loading questions. Please wait..."
 
     Quiz.loadResponse(currentUser.id).then (response) ->
