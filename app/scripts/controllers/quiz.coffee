@@ -20,8 +20,8 @@ angular.module('quizApp')
         b: "fn.call(this, stringsArray)"
         c: "fn.bind(this, stringsArray)"
       q005:
-        a: "getElementById("outer").children[0]"
-        b: "getElementsByClassName("inner")[0]"
+        a: "getElementById('outer').children[0]"
+        b: "getElementsByClassName('inner')[0]"
       q006:
         a: "Message One!"
         b: "Message Two!"

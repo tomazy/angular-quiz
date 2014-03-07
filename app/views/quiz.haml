@@ -26,12 +26,12 @@
           master­detail view, which are the most semantically correct?
 
         %ol(type="a")
-          %li(choice value="a" class="code")&= "<div>+</span>"
-          %li(choice value="b" class="code")&= "<tr>+<td>"
-          %li(choice value="c" class="code")&= "<ul>+<li>"
-          %li(choice value="d" class="code")&= "<p>+<br>"
-          %li(choice value="e") none of these
-          %li(choice value="f") all of these
+          %list_element_choice(value="a")
+          %list_element_choice(value="b")
+          %list_element_choice(value="c")
+          %list_element_choice(value="d")
+          %list_element_choice(value="e")
+          %list_element_choice(value="f")
 
     %li
       %question(name="q003")
@@ -39,9 +39,9 @@
           To pass an array of strings to a function, you should not use...
 
         %ol(type="a")
-          %li(choice value="a" class="code") fn.apply(this, stringsArray)
-          %li(choice value="b" class="code") fn.call(this, stringsArray)
-          %li(choice value="c" class="code") fn.bind(this, stringsArray)
+          %list_element_choice(value="a")
+          %list_element_choice(value="b")
+          %list_element_choice(value="c")
 
     %li
       %question(name="q004")
@@ -59,8 +59,8 @@
           which of these two is the most performant way to select the inner div?
 
         %ol(type="a")
-          %li(choice value="a" class="code") getElementById("outer").children[0]
-          %li(choice value="b" class="code") getElementsByClassName("inner")[0]
+          %list_element_choice(value="a")
+          %list_element_choice(value="b")
 
     %li
       %question(name="q006")
@@ -86,9 +86,9 @@
           Which message will be returned by injecting this service and executing
           'myService.getMessage()'?
         %ol(type="a")
-          %li(choice value="a") "Message One!"
-          %li(choice value="b") "Message Two!"
-          %li(choice value="c") "Message Three!"
+          %list_element_choice(value="a")
+          %list_element_choice(value="b")
+          %list_element_choice(value="c")
 
 %button.btn.btn-large.btn-primary(type="submit"
   ng-click="submitResponse()"
