@@ -2,6 +2,7 @@ angular.module('quizApp')
   .factory 'Quiz', (DB, $q) ->
     answers = null
     responses = {}
+    currentQuiz = {}
 
     quiz =
       loadQuestions: ->
@@ -12,6 +13,12 @@ angular.module('quizApp')
 
         DB.read('answers').then (data) ->
           answers = data
+
+      loadQuiz: (id) ->
+        return $q.when(currentQuiz) if currentQuiz.id is id
+
+        DB.read("Quizes/#{id}").then (data) ->
+          currentQuiz = data
 
       loadResponse: (id) ->
         return $q.when(responses[id]) if responses[id]
