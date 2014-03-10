@@ -56,12 +56,12 @@ angular.module('quizApp')
          ng-class="{correct: quiz.correct[questionName].answers[answerName].correctValue,
                     invalid: quiz.correct[questionName].answers[answerName].invalid}">
         <input type="checkbox" ng-disabled="quiz.disabled" ng-model="quiz.response[questionName][answerName]">
-        <span ng-transclude>{{choice[questionName][answerName]}}</span>
+        <span ng-transclude>{{answerName}}</span>
       </label>
     </li>
     """
     link: (scope, element, attrs, question) ->
-      scope.questionName = question.name
+      scope.questionName = attrs.questionName
       scope.answerName = attrs.value
 
   .directive 'inlineAnswer', ->

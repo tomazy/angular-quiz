@@ -8,87 +8,13 @@
 
 %quiz(ng-show="quiz.ready")
   %ol(type="1")
-    %li
-      %question(name="q001")
+    %li(ng-repeat="(question,questionObject) in quiz.questions")
+      %question(name="{{question}}")
         .description
-          Which is not an advantage of using a closure?
+          {{questionObject.question}}
 
         %ol(type="a")
-          %list_element_choice(value="a")
-          %list_element_choice(value="b")
-          %list_element_choice(value="c")
-          %list_element_choice(value="d")
-
-    %li
-      %question(name="q002")
-        .description
-          To create a columned list of two­line email subjects and dates for a
-          master­detail view, which are the most semantically correct?
-
-        %ol(type="a")
-          %list_element_choice(value="a")
-          %list_element_choice(value="b")
-          %list_element_choice(value="c")
-          %list_element_choice(value="d")
-          %list_element_choice(value="e")
-          %list_element_choice(value="f")
-
-    %li
-      %question(name="q003")
-        .description
-          To pass an array of strings to a function, you should not use...
-
-        %ol(type="a")
-          %list_element_choice(value="a")
-          %list_element_choice(value="b")
-          %list_element_choice(value="c")
-
-    %li
-      %question(name="q004")
-        .description
-          %inline_answer(name="a1")
-          and
-          %inline_answer(name="a2")
-          would be the HTML tags you would use to display a menu item and its
-          description.
-
-    %li
-      %question(name="q005")
-        .description
-          &= "Given <div id=”outer”><div class=”inner”></div></div>,"
-          which of these two is the most performant way to select the inner div?
-
-        %ol(type="a")
-          %list_element_choice(value="a")
-          %list_element_choice(value="b")
-
-    %li
-      %question(name="q006")
-        .description
-          Given this:
-        %pre
-          :preserve
-            angular.module(‘myModule’).service(‘myService', function(){
-              var message = "Message One!"
-              var getMessage = function(){
-                return this.message
-              }
-              this.message = "Message Two!"
-              this.getMessage = function(){ return message }
-              function(){
-                {
-                  getMessage: getMessage,
-                  message: "Message Three!"
-                }
-              }
-            }
-        %p
-          Which message will be returned by injecting this service and executing
-          'myService.getMessage()'?
-        %ol(type="a")
-          %list_element_choice(value="a")
-          %list_element_choice(value="b")
-          %list_element_choice(value="c")
+          %list_element_choice(ng-repeat="(key,value) in questionObject.options" value="{{value}}" questionName="{{question}}")
 
 %button.btn.btn-large.btn-primary(type="submit"
   ng-click="submitResponse()"
