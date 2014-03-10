@@ -19,7 +19,7 @@ describe 'Service: Quiz', ->
 
     it 'should be loaded from db', ->
       loadQuestions()
-      expect(DB.read).toHaveBeenCalledWith('questions')
+      expect(DB.read).toHaveBeenCalledWith('Quizes/0/questions')
 
     it 'should not be cached', ->
       loadQuestions()
@@ -36,7 +36,7 @@ describe 'Service: Quiz', ->
 
     it 'should be loaded from db', ->
       loadAnswers()
-      expect(DB.read).toHaveBeenCalledWith('answers')
+      expect(DB.read).toHaveBeenCalledWith('Quizes/0/answers')
 
     it 'should be cached', ->
       loadAnswers()

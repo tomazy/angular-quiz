@@ -16,7 +16,10 @@ angular.module('quizApp')
       if response?
         $scope.quiz.description = response.description
         $scope.quiz.options = response.options
-        $scope.quiz.questions = response.questions
+
+    Quiz.loadQuestions().then (response) ->
+      if response?
+        $scope.quiz.questions = response
         $scope.quiz.ready = true
       $scope.status = null
 
