@@ -43,6 +43,25 @@ describe 'Service: Quiz', ->
       loadAnswers()
       expect(DB.read.callCount).toEqual(1)
 
+  describe 'quiz', ->
+    beforeEach inject ($q) ->
+      DB.read.andReturn($q.when(true))
+
+    loadQuiz = (id) ->
+      inject (Quiz, $rootScope) ->
+        Quiz.loadQuiz(id)
+        $rootScope.$apply()
+
+    it 'should be loaded from db', ->
+      loadQuiz(123)
+      expect(DB.read).toHaveBeenCalledWith('Quizes/123')
+
+    it 'should be cached', ->
+      loadQuiz()
+      loadQuiz()
+      expect(DB.read.callCount).toEqual(1)
+
+
   describe 'responses', ->
     beforeEach inject ($q) ->
       DB.read.andReturn($q.when(true))

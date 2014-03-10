@@ -1,31 +1,7 @@
 angular.module('quizApp')
-  .controller 'QuizCtrl', ($scope, currentUser, Quiz, Flash) ->
+  .controller 'QuizCtrl', ($scope, $routeParams, currentUser, Quiz, Flash) ->
     quiz = $scope.quiz ||= {}
-
-    $scope.choice =
-      q001:
-        a: "Prevent pollution of global scope"
-        b: "Encapsulation"
-        c: "Private properties and methods"
-        d: "Allow conditional use of 'strict mode'"
-      q002:
-        a: "<div>+</span>"
-        b: "<tr>+<td>"
-        c: "<ul>+<li>"
-        d: "<p>+<br>"
-        e: "none of these"
-        f: "all of these"
-      q003:
-        a: "fn.apply(this, stringsArray)"
-        b: "fn.call(this, stringsArray)"
-        c: "fn.bind(this, stringsArray)"
-      q005:
-        a: "getElementById('outer').children[0]"
-        b: "getElementsByClassName('inner')[0]"
-      q006:
-        a: "Message One!"
-        b: "Message Two!"
-        c: "Message Three!"
+    quizId = $routeParams.quizId ||= 0
 
     $scope.status = "Loading questions. Please wait..."
 
@@ -35,6 +11,14 @@ angular.module('quizApp')
         quiz.disabled = true
       $scope.status = null
       quiz.ready = true
+
+    Quiz.loadQuiz(quizId).then (response) ->
+      if response?
+        $scope.quiz.description = response.description
+        $scope.quiz.options = response.options
+        $scope.quiz.questions = response.questions
+        $scope.quiz.ready = true
+      $scope.status = null
 
     $scope.submitResponse = ->
       $scope.processing = true
