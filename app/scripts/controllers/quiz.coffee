@@ -1,6 +1,7 @@
 angular.module('quizApp')
-  .controller 'QuizCtrl', ($scope, currentUser, Quiz, Flash) ->
+  .controller 'QuizCtrl', ($scope, $routeParams, currentUser, Quiz, Flash) ->
     quiz = $scope.quiz ||= {}
+    quizId = $routeParams.quizId ||= 0
 
     $scope.status = "Loading questions. Please wait..."
 
@@ -10,6 +11,17 @@ angular.module('quizApp')
         quiz.disabled = true
       $scope.status = null
       quiz.ready = true
+
+    Quiz.loadQuiz(quizId).then (response) ->
+      if response?
+        $scope.quiz.description = response.description
+        $scope.quiz.options = response.options
+
+    Quiz.loadQuestions().then (response) ->
+      if response?
+        $scope.quiz.questions = response
+        $scope.quiz.ready = true
+      $scope.status = null
 
     $scope.submitResponse = ->
       $scope.processing = true

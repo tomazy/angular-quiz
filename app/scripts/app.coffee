@@ -24,5 +24,11 @@ angular.module('quizApp', ['ng-firebase', 'ng-firebase-simple-login'])
         controller: 'SignUpCtrl'
         controllerAs: 'ctrl'
 
+      .when '/quiz/:quizId',
+        templateUrl: 'views/quiz.html'
+        controller: 'QuizCtrl'
+        resolve:
+          currentUser: requireCurrentUser
+
       .otherwise
         redirectTo: '/'

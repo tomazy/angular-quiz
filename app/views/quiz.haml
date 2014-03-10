@@ -1,3 +1,4 @@
+-# encoding: UTF-8
 %h1 Welcome to the Quiz!
 
 %button.btn.btn-default(ng-click="showCorrectAnswers()" ng-show="quiz.disabled")
@@ -7,88 +8,13 @@
 
 %quiz(ng-show="quiz.ready")
   %ol(type="1")
-    %li
-      %question(name="q001")
+    %li(ng-repeat="(question,questionObject) in quiz.questions")
+      %question(name="{{question}}")
         .description
-          Which is not an advantage of using a closure?
+          {{questionObject.question}}
 
         %ol(type="a")
-          %li(choice value="a") Prevent pollution of global scope
-          %li(choice value="b") Encapsulation
-          %li(choice value="c") Private properties and methods
-          %li(choice value="d") Allow conditional use of 'strict mode'
-
-
-    %li
-      %question(name="q002")
-        .description
-          To create a columned list of two­line email subjects and dates for a
-          master­detail view, which are the most semantically correct?
-
-        %ol(type="a")
-          %li(choice value="a" class="code")&= "<div>+</span>"
-          %li(choice value="b" class="code")&= "<tr>+<td>"
-          %li(choice value="c" class="code")&= "<ul>+<li>"
-          %li(choice value="d" class="code")&= "<p>+<br>"
-          %li(choice value="e") none of these
-          %li(choice value="f") all of these
-
-    %li
-      %question(name="q003")
-        .description
-          To pass an array of strings to a function, you should not use...
-
-        %ol(type="a")
-          %li(choice value="a" class="code") fn.apply(this, stringsArray)
-          %li(choice value="b" class="code") fn.call(this, stringsArray)
-          %li(choice value="c" class="code") fn.bind(this, stringsArray)
-
-    %li
-      %question(name="q004")
-        .description
-          %inline_answer(name="a1")
-          and
-          %inline_answer(name="a2")
-          would be the HTML tags you would use to display a menu item and its
-          description.
-
-    %li
-      %question(name="q005")
-        .description
-          &= "Given <div id=”outer”><div class=”inner”></div></div>,"
-          which of these two is the most performant way to select the inner div?
-
-        %ol(type="a")
-          %li(choice value="a" class="code") getElementById("outer").children[0]
-          %li(choice value="b" class="code") getElementsByClassName("inner")[0]
-
-    %li
-      %question(name="q006")
-        .description
-          Given this:
-        %pre
-          :preserve
-            angular.module(‘myModule’).service(‘myService', function(){
-              var message = "Message One!"
-              var getMessage = function(){
-                return this.message
-              }
-              this.message = "Message Two!"
-              this.getMessage = function(){ return message }
-              function(){
-                {
-                  getMessage: getMessage,
-                  message: "Message Three!"
-                }
-              }
-            }
-        %p
-          Which message will be returned by injecting this service and executing
-          'myService.getMessage()'?
-        %ol(type="a")
-          %li(choice value="a") "Message One!"
-          %li(choice value="b") "Message Two!"
-          %li(choice value="c") "Message Three!"
+          %list_element_choice(ng-repeat="(key,value) in questionObject.options" value="{{value}}" questionName="{{question}}")
 
 %button.btn.btn-large.btn-primary(type="submit"
   ng-click="submitResponse()"
